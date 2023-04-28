@@ -161,15 +161,91 @@ class CustomCommands:
 			view = MySelectView()
 			await interaction.response.send_message(view=view, ephemeral = True)
 
+		@tree.command(name = "info", description= "Pokazuje informacje odnośnie serwera.", guild = discord.Object(id = 698522294414344232))
+		async def self(interaction: discord.Integration):
+			class MyButton(View):
+					@discord.ui.button(label="Back", style=discord.ButtonStyle.gray)
+					async def gray_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
+						button.disabled = True
+						await interaction.response.edit_message(content=None,embed=None,view=MySelectView())
+
+			class MySelectView(View):
+				@discord.ui.select(
+					placeholder="Wybierz zbiór komend.",
+						options=[
+
+							discord.SelectOption(
+								label="UwU",
+								description="Uwiecznienie, Wygrań, Uczestników.",
+								value="1",
+								emoji="<:owo:921393844598239263>",
+							),
+
+							discord.SelectOption(
+								label="Helpg",
+								description="Pokazuję ogólne komendy które posiadam.",
+								value="2",
+								emoji="📗",
+							),
+						],)
+
+				async def select_callback(self, interaction:discord.Integration, select: discord.ui.Select):
+					select.disabled = True
+					if select.values[0] == "1":
+
+						embed = discord.Embed(title="Proszę, oto wszystkie dostępne zbiory komend.", description='Wymienię ci tu wszystkie zbiory komend które możesz wywołać za po mocą  "/help".', color=0xfceade)
+						embed.set_thumbnail(url=config["avatar"])
+						embed.add_field(name="🔖 help", value="Pokazuję zbiory komend.", inline=False)
+						embed.add_field(name="📗 helpg", value="Pokazuję ogólne komendy które posiadam.", inline=False)
+						embed.add_field(name="📙 helpg+", value="Pokazuję komendy dla Uczestników+ oraz Server Boosterów.", inline=False)
+						embed.add_field(name="📕 helpm", value="Pokazuję komendy dla administracji serwera.", inline=False)
+						embed.add_field(name="📓 helpvc", value="Pokazuję komendy związane z kanałem głosowym.", inline=False)
+						await interaction.response.edit_message(embed=embed,view=MyButton())
+
+					if select.values[0] == "2":
+
+						embed = discord.Embed(title="Proszę, oto zbiór wszystkich komend generalnych.", description="Wymienie ci tu wszystkie komendy generalne jakie obsługuję, i co one robią.", color=0xfceade)
+						embed.set_thumbnail(url=config["avatar"])
+						embed.add_field(name=":white_check_mark: /avatar", value="Pozwala ci wyświetlić avatar wybranej przez ciebie osoby.", inline=False)
+						embed.add_field(name=":white_check_mark: /ping", value="Pokazuję opóźnienie między tobą a discordem.", inline=False)
+						embed.add_field(name=":white_check_mark: /py", value="Tą komendą możesz zadać mi pytanie. Aby jej użyć, musisz wpisać komendę, a po spacji pytanie na które mogę odpowiedzieć Tak/Nie.", inline=False)
+						embed.add_field(name=":white_check_mark: /kiss", value=f"Pozwala ci pocałować wybrano przez ciebie osobę.", inline=False)
+						embed.add_field(name=":white_check_mark: /hug", value=f"Pozwala ci przytulić wybrano przez ciebie osobę.", inline=False)
+						embed.add_field(name=":white_check_mark: /pat", value=f"Pozwala ci pogłaskać wybrano przez ciebie osobę.", inline=False)
+						embed.add_field(name=":white_check_mark: /slap", value=f"Pozwala ci uderzyć wybrano przez ciebie osobę.", inline=False)
+						embed.add_field(name=":white_check_mark: /pong", value=f"Pozwala ci na zaproszenie kogoś do wspólnego rzucania piłeczką.", inline=False)
+						embed.add_field(name=":white_check_mark: /version", value=f"Pokazuję wersję Otaki-Chan", inline=False)
+						embed.add_field(name=":white_check_mark: /logs", value=f"Pokazuję logi Otaki-Chan", inline=False)
+						embed.add_field(name=":white_check_mark: /vocabulary", value=f"Pokazuję ci słowniczek Otakumani.", inline=False)
+						embed.add_field(name=":white_check_mark: /dice", value=f"Pozwala ci rzucić wybraną przez siebie kostką.", inline=False)
+						embed.add_field(name=":white_check_mark: /donacje", value=f"Możesz to komendą podarować mi trochę radości.", inline=False)
+						embed.add_field(name="Komendy które po lewej stronie posiadają znaczek:", value=f":white_check_mark: działają poprawnie.\n<:AAEC_karenThink:981262325061419009> działają ale nie do końca dobrze.\n<:9881_NotHuTao:926276740437921843> Nie działają lub działają nie właściwie.", inline=False)
+						await interaction.response.edit_message(embed=embed,view=MyButton())
+
+					
+
+			view = MySelectView()
+			await interaction.response.send_message(view=view, ephemeral = True)
+
 		@tree.command(name = "avatar", description= "Pozwala ci zobaczyć avatar wybranej przez ciebie osoby..", guild = discord.Object(id = 698522294414344232))
 		async def self(interaction: discord.Integration, member: discord.Member):
-			await interaction.response.send_message(f"{member.avatar}", ephemeral = False)
+			mchannel = discord.utils.get(interaction.guild.channels, id = 922781362514190386)
+			channel = discord.utils.get(interaction.guild.channels, id = 925191790284406805)
+			if interaction.channel == channel or interaction.channel == mchannel:
+				await interaction.response.send_message(f"{member.avatar}", ephemeral = False)
+			else:
+				await interaction.response.send_message(f"Hej {interaction.user.mention}, Nye jesteś na kanale {channel.mention}.",ephemeral = True)
 
 		@tree.command(name = "ping", description= "Pokazuję opóźnienie między tobą a discordem.", guild = discord.Object(id = 698522294414344232))
 		async def self(interaction: discord.Integration):
-			embed = discord.Embed(color=0x00ff00)
-			embed.add_field(name="Opóźnienie wynosi:", value=str(round(client.latency * 1000)),  inline=False) 
-			await interaction.response.send_message(embed=embed, ephemeral = False)
+			mchannel = discord.utils.get(interaction.guild.channels, id = 922781362514190386)
+			channel = discord.utils.get(interaction.guild.channels, id = 925191790284406805)
+			if interaction.channel == channel or interaction.channel == mchannel:
+				embed = discord.Embed(color=0xfceade)
+				embed.add_field(name="Opóźnienie api discorda:", value=str(round(client.latency * 1000)),  inline=False) 
+				await interaction.response.send_message(embed=embed, ephemeral = False)
+			else:
+				await interaction.response.send_message(f"Hej {interaction.user.mention}, Nye jesteś na kanale {channel.mention}.",ephemeral = True)
 
 		@tree.command(name = "sp", description= "Pozwala ci na usuwanie dużej ilości wiadomości na raz.", guild = discord.Object(id = 698522294414344232))
 		async def self(interaction: discord.Integration, amount: int):
@@ -312,23 +388,28 @@ class CustomCommands:
 
 		@tree.command(name = "donacje", description= "Za pomocą tej komendy możesz mi ofiarować trochę radości.", guild = discord.Object(id = 698522294414344232))
 		async def self(interaction: discord.Integration):
-			button = Button(label="Donacje", url="https://tipply.pl/u/emmeciarz")
-			view = View()
-			view.add_item(button)
-			responses = ["https://i.postimg.cc/Kz959kcY/touhou.gif",
-						"https://i.postimg.cc/sxq4rkhd/touhou-cookie.gif",
-						"https://i.postimg.cc/nc91khyH/touhou-reimu.gif",
-						"https://i.postimg.cc/Tw29qq6S/unknown.png",
-						"https://i.postimg.cc/ZRdfgpHj/ep00000.gif",
-						"https://i.postimg.cc/CKtPmmGz/hataage-kemono-michi-shigure.gif",
-						"https://i.postimg.cc/43n26rhD/kupo-gossip.gif",
-						"https://i.postimg.cc/DwxYb2mQ/money.gif",
-						"https://i.postimg.cc/4yR8TyFG/shut-up-take-my-money.gif",
-						"https://i.postimg.cc/6qyfFWTf/yay-yeah.gif"]
+			mchannel = discord.utils.get(interaction.guild.channels, id = 922781362514190386)
+			channel = discord.utils.get(interaction.guild.channels, id = 925191790284406805)
+			if interaction.channel == channel or interaction.channel == mchannel:
+				button = Button(label="Donacje", url="https://tipply.pl/u/kiriu")
+				view = View()
+				view.add_item(button)
+				responses = ["https://i.postimg.cc/Kz959kcY/touhou.gif",
+							"https://i.postimg.cc/sxq4rkhd/touhou-cookie.gif",
+							"https://i.postimg.cc/nc91khyH/touhou-reimu.gif",
+							"https://i.postimg.cc/Tw29qq6S/unknown.png",
+							"https://i.postimg.cc/ZRdfgpHj/ep00000.gif",
+							"https://i.postimg.cc/CKtPmmGz/hataage-kemono-michi-shigure.gif",
+							"https://i.postimg.cc/43n26rhD/kupo-gossip.gif",
+							"https://i.postimg.cc/DwxYb2mQ/money.gif",
+							"https://i.postimg.cc/4yR8TyFG/shut-up-take-my-money.gif",
+							"https://i.postimg.cc/6qyfFWTf/yay-yeah.gif"]
 
-			embed = discord.Embed(title=f"Donacje", description=f"Jeśli chcesz mi podziękować albo wspomóc lub po prostu postawić herbatkę ten przycisk pozwoli ci mnie zdonejtować.", color=0xfceade)
-			embed.set_image(url=f"{random.choice(responses)}")
-			await interaction.response.send_message(embed=embed,view=view,ephemeral = False)
+				embed = discord.Embed(title=f"Donacje", description=f"Jeśli chcesz mi podziękować albo wspomóc lub po prostu postawić herbatkę ten przycisk pozwoli ci mnie zdonejtować.", color=0xfceade)
+				embed.set_image(url=f"{random.choice(responses)}")
+				await interaction.response.send_message(embed=embed,view=view,ephemeral = False)
+			else:
+				await interaction.response.send_message(f"Hej {interaction.user.mention}, Nye jesteś na kanale {channel.mention}.",ephemeral = True)
 
 		@tree.command(name = "creation", description= "Służy do kreacji ról do wybierania.", guild = discord.Object(id = 698522294414344232))
 		async def self(interaction: discord.Integration, channels: discord.TextChannel, title: str, emoji: str, role: discord.Role,message: str):
@@ -580,24 +661,29 @@ class CustomCommands:
 
 		@tree.command(name = "dice", description= "Pozwala ci rzucić wybraną przez siebie kostką.", guild = discord.Object(id = 698522294414344232))
 		async def self(interaction: discord.Integration, dice: int, throw: int, bonus: int=None):
-			scores = []
-			if bonus==None:
-				for i in range(throw):
-					wynik = random.randint(1,dice)
-					scores.append(wynik)
-				embed = discord.Embed(title=f"{interaction.user.name} rzuca d{dice}", description=f"Rzuty: {throw}", color=0xfceade)
-				embed.add_field(name="Wyniki:", value=f"{scores}", inline=False)
-				embed.set_thumbnail(url=f"{interaction.user.avatar}")
-				await interaction.response.send_message(embed=embed, ephemeral = False)
+			mchannel = discord.utils.get(interaction.guild.channels, id = 922781362514190386)
+			channel = discord.utils.get(interaction.guild.channels, id = 925191790284406805)
+			if interaction.channel == channel or interaction.channel == mchannel:
+				scores = []
+				if bonus==None:
+					for i in range(throw):
+						wynik = random.randint(1,dice)
+						scores.append(wynik)
+					embed = discord.Embed(title=f"{interaction.user.name} rzuca d{dice}", description=f"Rzuty: {throw}", color=0xfceade)
+					embed.add_field(name="Wyniki:", value=f"{scores}", inline=False)
+					embed.set_thumbnail(url=f"{interaction.user.avatar}")
+					await interaction.response.send_message(embed=embed, ephemeral = False)
 
+				else:
+					wynik = random.randint(1,dice)
+					sum=wynik+bonus
+					embed = discord.Embed(title=f"{interaction.user.name} rzuca d{dice}", description=f"Rzuty: 1", color=0xfceade)
+					embed.add_field(name="Wynik:", value=f"{wynik} + {bonus}", inline=False)
+					embed.set_thumbnail(url=f"{interaction.user.avatar}")
+					embed.set_footer(text=f"Suma: {sum}")
+					await interaction.response.send_message(embed=embed, ephemeral = False)
 			else:
-				wynik = random.randint(1,dice)
-				sum=wynik+bonus
-				embed = discord.Embed(title=f"{interaction.user.name} rzuca d{dice}", description=f"Rzuty: 1", color=0xfceade)
-				embed.add_field(name="Wynik:", value=f"{wynik} + {bonus}", inline=False)
-				embed.set_thumbnail(url=f"{interaction.user.avatar}")
-				embed.set_footer(text=f"Suma: {sum}")
-				await interaction.response.send_message(embed=embed, ephemeral = False)
+				await interaction.response.send_message(f"Hej {interaction.user.mention}, Nye jesteś na kanale {channel.mention}.",ephemeral = True)
 
 		@tree.command(name = "embeds", description= "Pozwala ci tworzyć własne wiadomości embedowe.", guild = discord.Object(id = 698522294414344232))
 		async def self(interaction: discord.Integration, title: str, description: str, subtitle: str = None, subtitle_description: str = None, footer: str = None, avatar:discord.Member=None, image: str = None):

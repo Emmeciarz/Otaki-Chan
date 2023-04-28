@@ -6,6 +6,7 @@ import wavelink
 import time
 import asyncio
 import platform
+import sysconfig
 from wavelink.ext import spotify
 from discord import app_commands
 from discord.ext import commands, tasks
@@ -61,6 +62,7 @@ class aclient(discord.Client):
 		print(discord.__version__)
 		print('System operacyjny')
 		print(platform.system(),platform.release())
+		print(sysconfig.get_platform())
 		status_swap.start()
 		client.loop.create_task(connect_nodes())
 
@@ -130,7 +132,7 @@ class aclient(discord.Client):
 		logs = [log async for log in guild.audit_logs(limit=1, action=discord.AuditLogAction.ban)]
 		logs = logs[0]
 
-		embed = discord.Embed(title=f"Uczestnik:", description=f"{member.mention} został zbanowany przez: {logs.user.mention}", color=0xfceade)
+		embed = discord.Embed(title=f"Uczestnik:", description=f"{member.mention} został zbanowany przez: {logs.user.mention}", color=0xf54227)
 		embed.set_thumbnail(url=member.avatar)
 		await goodbye_channel.send(embed=embed)
 
@@ -144,7 +146,7 @@ class aclient(discord.Client):
 				check_ban = True
 		
 		if check_ban == False:
-			embed = discord.Embed(title="Uczestnik:", description=f"{member.mention} Znany nam jako {member.name} opuścił serwer {guild.name}", color=0xfceade)
+			embed = discord.Embed(title="Uczestnik:", description=f"{member.mention} Znany nam jako {member.name} opuścił serwer {guild.name}", color=0xf54227)
 			embed.set_thumbnail(url=member.avatar)
 			await goodbye_channel.send(embed=embed)
 
@@ -154,8 +156,11 @@ class aclient(discord.Client):
 			async def danger_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
 				button.disabled = True
 				await invite.delete()
+				embed = discord.Embed(title="Uczestnik:", description=f"{invite.inviter.mention} Znany nam jako {invite.inviter.name} stworzył\nzaprosznie na serwer {guild.name}",color=0xf54227)
+				embed.add_field(name="Informacje odnośnie zaprosznia:", value=f"Link: {invite.url}\nNa kanał: {invite.channel}", inline=False)
+				embed.set_thumbnail(url=invite.inviter.avatar)
 				embed.add_field(name="USUNIĘTO", value=f"", inline=False)
-				await interaction.response.edit_message(content="Usunięto",embed=embed,view=None)
+				await interaction.response.edit_message(content="",embed=embed,view=None)
 
 		guild = client.get_guild(698522294414344232) #Id: Serwera Nya
 		modowedki_channel = guild.get_channel(922781362514190386) # Id: Modowędki
@@ -181,9 +186,14 @@ client = aclient()
 tree = app_commands.CommandTree(client)
 @tree.command(name = "version", description= "Pokazuję moją wersje.", guild = discord.Object(id = 698522294414344232))
 async def self(interaction: discord.Integration):
-	embed=discord.Embed(title="Wersja Otaki-Chan.", description=f'Obecnie posiadam wersje: {config["version"]}', color=0xfceade)
-	embed.set_thumbnail(url = config["avatar"])
-	await interaction.response.send_message(embed=embed, ephemeral = False)
+	mchannel = discord.utils.get(interaction.guild.channels, id = 922781362514190386)
+	channel = discord.utils.get(interaction.guild.channels, id = 925191790284406805)
+	if interaction.channel == channel or interaction.channel == mchannel:
+		embed=discord.Embed(title="Wersja Otaki-Chan.", description=f'Obecnie posiadam wersje: {config["version"]}', color=0xfceade)
+		embed.set_thumbnail(url = config["avatar"])
+		await interaction.response.send_message(embed=embed, ephemeral = False)
+	else:
+		await interaction.response.send_message(f"Hej {interaction.user.mention}, Nye jesteś na kanale {channel.mention}.",ephemeral = True)
 
 @tree.command(name = "logs", description= "Pokazuje opisy moich wersji.", guild = discord.Object(id = 698522294414344232))
 async def self(interaction: discord.Integration):
@@ -199,8 +209,13 @@ async def self(interaction: discord.Integration):
 				options=[
 
 					discord.SelectOption(
-						label="0.7.5",
+						label="0.8",
 						emoji="💮",
+						value="7",
+					),
+
+					discord.SelectOption(
+						label="0.7.5",
 						value="6",
 					),
 
@@ -232,6 +247,17 @@ async def self(interaction: discord.Integration):
 
 		async def select_callback(self, interaction:discord.Integration, select: discord.ui.Select):
 			select.disabled = True
+
+			if select.values[0] == "7":
+
+				embed = discord.Embed(title="Wersja: 0.8", description=f"", color=0xfceade)
+				embed.set_thumbnail(url=config["avatar"])
+				embed.add_field(name="Naprawiono:", value=f"Warunki wyświetlania komend.", inline=False)
+				embed.add_field(name="Naprawiono:", value=f"Link do donacji(/donacje).", inline=False)
+				embed.add_field(name="Poprawiono:", value=f"/ping", inline=False)
+				embed.add_field(name="Ulepszono:", value=f"Ulepszono dobieranie tokenu do systemu.", inline=False)
+				embed.add_field(name="Ulepszono:", value=f"Kolory powiadomień dla moderacji(wyjście/ban uczestnika).", inline=False)
+				await interaction.response.edit_message(embed=embed,view=MyButton())
 
 			if select.values[0] == "6":
 
@@ -301,6 +327,8 @@ EcoRpg.CustomCommands.get_commands(tree,client)
 Commands.CustomCommands.get_commands(tree,client)
 
 if platform.system() == "Windows":
+	client.run(config["mtoken"])
+elif sysconfig.get_platform() == "linux-x86_64":
 	client.run(config["mtoken"])
 elif platform.system() == "Linux":
 	client.run(config["otoken"])
