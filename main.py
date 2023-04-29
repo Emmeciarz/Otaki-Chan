@@ -7,6 +7,7 @@ import time
 import asyncio
 import platform
 import sysconfig
+import sys
 from wavelink.ext import spotify
 from discord import app_commands
 from discord.ext import commands, tasks
@@ -25,6 +26,8 @@ status = cycle(['/help',f'v{config["version"]}'])
 BOOST_TYPES = discord.MessageType.premium_guild_subscription, discord.MessageType.premium_guild_tier_1, discord.MessageType.premium_guild_tier_2, discord.MessageType.premium_guild_tier_3
 
 data_role_path = Path(r"../role.json")
+
+start = time.time()
 
 @tasks.loop(seconds=15)
 async def status_swap():
@@ -62,7 +65,6 @@ class aclient(discord.Client):
 		print(discord.__version__)
 		print('System operacyjny')
 		print(platform.system(),platform.release())
-		print(sysconfig.get_platform())
 		status_swap.start()
 		client.loop.create_task(connect_nodes())
 
@@ -195,6 +197,21 @@ async def self(interaction: discord.Integration):
 	else:
 		await interaction.response.send_message(f"Hej {interaction.user.mention}, Nye jesteś na kanale {channel.mention}.",ephemeral = True)
 
+@tree.command(name = "life_time", description= "Pokazuję jak długo działam bez snu.", guild = discord.Object(id = 698522294414344232))
+async def self(interaction: discord.Integration):
+	check = time.time()
+	sec = check-start
+	sec = sec % (24 * 3600)
+	hour = sec // 3600
+	day = hour // 24
+	sec %= 3600
+	min = sec // 60
+	sec %= 60
+	embed=discord.Embed(title="Czas działania:", description=f"%02d:%02d:%02d:%02d \nD:G:M:S" % (day, hour, min, sec), color=0xfceade)
+
+	embed.set_thumbnail(url = config["avatar"])
+	await interaction.response.send_message(embed=embed,ephemeral = True)
+
 @tree.command(name = "logs", description= "Pokazuje opisy moich wersji.", guild = discord.Object(id = 698522294414344232))
 async def self(interaction: discord.Integration):
 	class MyButton(View):
@@ -255,8 +272,12 @@ async def self(interaction: discord.Integration):
 				embed.add_field(name="Naprawiono:", value=f"Warunki wyświetlania komend.", inline=False)
 				embed.add_field(name="Naprawiono:", value=f"Link do donacji(/donacje).", inline=False)
 				embed.add_field(name="Poprawiono:", value=f"/ping", inline=False)
+				embed.add_field(name="Poprawiono:", value=f"/pat", inline=False)
 				embed.add_field(name="Ulepszono:", value=f"Ulepszono dobieranie tokenu do systemu.", inline=False)
 				embed.add_field(name="Ulepszono:", value=f"Kolory powiadomień dla moderacji(wyjście/ban uczestnika).", inline=False)
+				embed.add_field(name="Dodano:", value=f"/info", inline=False)
+				embed.add_field(name="Dodano:", value=f"/life_time", inline=False)
+				embed.add_field(name="Dodano:", value=f"/handshake", inline=False)
 				await interaction.response.edit_message(embed=embed,view=MyButton())
 
 			if select.values[0] == "6":
@@ -326,11 +347,9 @@ Kick.CustomCommands.get_commands(tree,client)
 EcoRpg.CustomCommands.get_commands(tree,client)
 Commands.CustomCommands.get_commands(tree,client)
 
-if platform.system() == "Windows":
+if sysconfig.get_platform() == "win-amd64" or sysconfig.get_platform() == "linux-x86_64":
 	client.run(config["mtoken"])
-elif sysconfig.get_platform() == "linux-x86_64":
-	client.run(config["mtoken"])
-elif platform.system() == "Linux":
+elif sysconfig.get_platform() == "linux-aarch64":
 	client.run(config["otoken"])
 else:
-	print("Nie rozpoznaje jednego z dwóch systemów operacyjnych z których korzystam Windows/Linux.")
+	print("Nie rozpoznaje żadnych z moich miejsc pracy.")

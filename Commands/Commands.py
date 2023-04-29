@@ -83,6 +83,8 @@ class CustomCommands:
 
 						embed = discord.Embed(title="Proszę, oto zbiór wszystkich komend generalnych.", description="Wymienie ci tu wszystkie komendy generalne jakie obsługuję, i co one robią.", color=0xfceade)
 						embed.set_thumbnail(url=config["avatar"])
+						embed.add_field(name=":white_check_mark: /info", value="Pokazuje informacje odnośnie serwera.", inline=False)
+						embed.add_field(name=":white_check_mark: /life_time", value="Pokazuję jak długo działam bez snu.", inline=False)
 						embed.add_field(name=":white_check_mark: /avatar", value="Pozwala ci wyświetlić avatar wybranej przez ciebie osoby.", inline=False)
 						embed.add_field(name=":white_check_mark: /ping", value="Pokazuję opóźnienie między tobą a discordem.", inline=False)
 						embed.add_field(name=":white_check_mark: /py", value="Tą komendą możesz zadać mi pytanie. Aby jej użyć, musisz wpisać komendę, a po spacji pytanie na które mogę odpowiedzieć Tak/Nie.", inline=False)
@@ -90,6 +92,7 @@ class CustomCommands:
 						embed.add_field(name=":white_check_mark: /hug", value=f"Pozwala ci przytulić wybrano przez ciebie osobę.", inline=False)
 						embed.add_field(name=":white_check_mark: /pat", value=f"Pozwala ci pogłaskać wybrano przez ciebie osobę.", inline=False)
 						embed.add_field(name=":white_check_mark: /slap", value=f"Pozwala ci uderzyć wybrano przez ciebie osobę.", inline=False)
+						embed.add_field(name=":white_check_mark: /handshake", value=f"Pozwala ci uścisnąć dłoń wybranej przez ciebie osobie.", inline=False)
 						embed.add_field(name=":white_check_mark: /pong", value=f"Pozwala ci na zaproszenie kogoś do wspólnego rzucania piłeczką.", inline=False)
 						embed.add_field(name=":white_check_mark: /version", value=f"Pokazuję wersję Otaki-Chan", inline=False)
 						embed.add_field(name=":white_check_mark: /logs", value=f"Pokazuję logi Otaki-Chan", inline=False)
@@ -182,10 +185,38 @@ class CustomCommands:
 							),
 
 							discord.SelectOption(
-								label="Helpg",
-								description="Pokazuję ogólne komendy które posiadam.",
+								label="Aktualizacje Otaki-Chan",
+								description="Newsy co będą zawierać przyszłe aktualizacje.",
 								value="2",
-								emoji="📗",
+								emoji="<a:Hype:981262325354991716>",
+							),
+
+							discord.SelectOption(
+								label="Aspiracje serwara.",
+								description="Nasze cele do których dążymy.",
+								value="3",
+								emoji="<:this:1098727934673555477>",
+							),
+
+							discord.SelectOption(
+								label="Kim jest Otaki/Mani-Chan ?",
+								description="Wytłumaczenie kim są i dlaczego są.",
+								value="4",
+								emoji="<:Hug:1098736403254349865>",
+							),
+
+							discord.SelectOption(
+								label="Czym jest Context menu ?",
+								description="Wytłumaczenie czym jest i jak działa Context menu.",
+								value="5",
+								emoji="<a:argshow:1099069422821458081>",
+							),
+
+							discord.SelectOption(
+								label="Gdzie szukać odpowiedzi ?",
+								description="Ukazanie gdzie znajdują się odpowiedzi na temat serwera.",
+								value="6",
+								emoji="<:Peer:1098734415712108635>",
 							),
 						],)
 
@@ -193,37 +224,52 @@ class CustomCommands:
 					select.disabled = True
 					if select.values[0] == "1":
 
-						embed = discord.Embed(title="Proszę, oto wszystkie dostępne zbiory komend.", description='Wymienię ci tu wszystkie zbiory komend które możesz wywołać za po mocą  "/help".', color=0xfceade)
+						embed = discord.Embed(title="Uwiecznienie Wygrań Uczestników.", description="", color=0xfceade)
 						embed.set_thumbnail(url=config["avatar"])
-						embed.add_field(name="🔖 help", value="Pokazuję zbiory komend.", inline=False)
-						embed.add_field(name="📗 helpg", value="Pokazuję ogólne komendy które posiadam.", inline=False)
-						embed.add_field(name="📙 helpg+", value="Pokazuję komendy dla Uczestników+ oraz Server Boosterów.", inline=False)
-						embed.add_field(name="📕 helpm", value="Pokazuję komendy dla administracji serwera.", inline=False)
-						embed.add_field(name="📓 helpvc", value="Pokazuję komendy związane z kanałem głosowym.", inline=False)
+						embed.add_field(name="Nazwa wydarzenia:", value="Reminiscencjowe Quizium", inline=True)
+						embed.add_field(name="Zwyciezca/y:", value="<@403248080193060866>", inline=True)
+						embed.set_thumbnail(url = config["avatar"])
+
 						await interaction.response.edit_message(embed=embed,view=MyButton())
 
 					if select.values[0] == "2":
 
-						embed = discord.Embed(title="Proszę, oto zbiór wszystkich komend generalnych.", description="Wymienie ci tu wszystkie komendy generalne jakie obsługuję, i co one robią.", color=0xfceade)
-						embed.set_thumbnail(url=config["avatar"])
-						embed.add_field(name=":white_check_mark: /avatar", value="Pozwala ci wyświetlić avatar wybranej przez ciebie osoby.", inline=False)
-						embed.add_field(name=":white_check_mark: /ping", value="Pokazuję opóźnienie między tobą a discordem.", inline=False)
-						embed.add_field(name=":white_check_mark: /py", value="Tą komendą możesz zadać mi pytanie. Aby jej użyć, musisz wpisać komendę, a po spacji pytanie na które mogę odpowiedzieć Tak/Nie.", inline=False)
-						embed.add_field(name=":white_check_mark: /kiss", value=f"Pozwala ci pocałować wybrano przez ciebie osobę.", inline=False)
-						embed.add_field(name=":white_check_mark: /hug", value=f"Pozwala ci przytulić wybrano przez ciebie osobę.", inline=False)
-						embed.add_field(name=":white_check_mark: /pat", value=f"Pozwala ci pogłaskać wybrano przez ciebie osobę.", inline=False)
-						embed.add_field(name=":white_check_mark: /slap", value=f"Pozwala ci uderzyć wybrano przez ciebie osobę.", inline=False)
-						embed.add_field(name=":white_check_mark: /pong", value=f"Pozwala ci na zaproszenie kogoś do wspólnego rzucania piłeczką.", inline=False)
-						embed.add_field(name=":white_check_mark: /version", value=f"Pokazuję wersję Otaki-Chan", inline=False)
-						embed.add_field(name=":white_check_mark: /logs", value=f"Pokazuję logi Otaki-Chan", inline=False)
-						embed.add_field(name=":white_check_mark: /vocabulary", value=f"Pokazuję ci słowniczek Otakumani.", inline=False)
-						embed.add_field(name=":white_check_mark: /dice", value=f"Pozwala ci rzucić wybraną przez siebie kostką.", inline=False)
-						embed.add_field(name=":white_check_mark: /donacje", value=f"Możesz to komendą podarować mi trochę radości.", inline=False)
-						embed.add_field(name="Komendy które po lewej stronie posiadają znaczek:", value=f":white_check_mark: działają poprawnie.\n<:AAEC_karenThink:981262325061419009> działają ale nie do końca dobrze.\n<:9881_NotHuTao:926276740437921843> Nie działają lub działają nie właściwie.", inline=False)
+						embed = discord.Embed(title="Co zawita do nas w przyszłości ?", description="Wymienione w kolejności priorytetowej.", color=0xfceade)
+						embed.add_field(name="1. EcoRpg", value=f"Jest to rozbudowany projekt na Otaki-chan polegającym na stworzeniu gry w stylu rpg z domieszkami economy.", inline=False)
+						embed.set_thumbnail(url = config["avatar"])
+						await interaction.response.edit_message(embed=embed,view=MyButton())
+					
+					if select.values[0] == "3":
+
+						embed = discord.Embed(title="Aspiracje serwera Otakumani.", description="Przedstawię ci teraz nasze cele do których dążymy, jeśli będziesz chciał nas wspomóc z realizacją celów/celu napisz do któregoś z nas: <@394162972957605890>,<@277119816043724801>,<@416324164543184907>", color=0xfceade)
+						embed.add_field(name="Poszukujemy nowszych:", value=f"Icon Otaki/Mani-Chan, Icon serwera, Banerów serwra.", inline=False)
+						embed.add_field(name="Potrzebujemy:", value=f"Loga, Rysownika/Rysowniczki, Strony serwera.", inline=False)
+						embed.add_field(name="Usilnie realizujemy:", value=f"Serwerowe RP, Osiągniecie 500 osób na serwerze, Projekt EcpRpg.", inline=False)
+						embed.set_thumbnail(url = config["avatar"])
+						embed.set_image(url="https://i.postimg.cc/x8vP059p/wp5815954.webp")
 						await interaction.response.edit_message(embed=embed,view=MyButton())
 
-					
+					if select.values[0] == "4":
 
+						embed = discord.Embed(title="Otaki-Chan oraz Mani-chan.", description="Są to maskotki serwera stworzone przez <@394162972957605890> które pełnią role administracyjne, promujące serwer, oraz zabawowe ich nazwy wzięły się z rozbicia nazwy serwera na dwa człony Otaku oraz Mania po czym przerobienia ich na dziewczęce imiona i tak powstały nazwy <@796459757506134016> z Otaku i <@970417320717615134> z Mania. Jeśli chodzi o ich zarys osobowościowy pojawi się ona w przyszłości, a i wypadało by zaznaczyć czemu Mani-Chan pojawia się sporadycznie online wynika to z faktu bycia przez nią testerko", color=0xfceade)
+						embed.set_thumbnail(url = config["avatar"])
+						await interaction.response.edit_message(embed=embed,view=MyButton())
+
+					if select.values[0] == "5":
+
+						embed = discord.Embed(title="Context menu:", description="Jest to drugi sposób na używanie komend Otaki-Chan żeby wywołać context menu należy kliknąć prawym przyciskiem myszy na uczestnika po czym przejechać do opcji aplikacje i powinniśmy ujrzeć nasze komendy które możemy ujrzeć.", color=0xfceade)
+						embed.set_thumbnail(url = config["avatar"])
+						await interaction.response.edit_message(embed=embed,view=MyButton())
+
+					if select.values[0] == "6":
+
+						embed = discord.Embed(title="Informacje:", description="", color=0xfceade)
+						embed.add_field(name="Główne:", value=f"Wszelakie obwieszczenia związane z działaniami, zasadami i wytłumaczeniami na temat ról znajdziesz na kanale \n<#926305651968315393>", inline=False)
+						embed.add_field(name="Społecznościowe:", value=f"Adnotacje społecznościowe takie jak wydarzenia pojawiają się w zakładce wydarzenia pod celem serwera a inne wieści znajdziesz po wpisaniu komendy /info", inline=False)
+						embed.add_field(name="Komendowe:", value=f"Wskazówki co do działania komend znajdziesz po wpisaniu /help wyświetlą ci się wszystkie zbiory komend jak i co robią poszczególne z nich.", inline=False)
+						embed.set_thumbnail(url = config["avatar"])
+						await interaction.response.edit_message(embed=embed,view=MyButton())
+					
 			view = MySelectView()
 			await interaction.response.send_message(view=view, ephemeral = True)
 
@@ -375,7 +421,14 @@ class CustomCommands:
 		@tree.command(name = "pat", description= "Pozwala ci pogłaskać wybrano przez ciebie osobę.", guild = discord.Object(id = 698522294414344232))
 		async def self(interaction: discord.Integration, od: discord.Member, dla: discord.Member):
 			kissa = ["https://i.postimg.cc/YS0yNBRz/aharen-aharen-san.gif","https://i.postimg.cc/1tLT57pc/anime-girl.gif","https://i.postimg.cc/pVcb3khT/anime-girl-1.gif","https://i.postimg.cc/hjSRR51J/anime-girl-pet.gif","https://i.postimg.cc/GpPnNCGw/anime-good-girl.gif","https://i.postimg.cc/XqdPZKLM/anime-head-pat.gif","https://i.postimg.cc/pTnG7Qg9/anime-pat.gif","https://i.postimg.cc/ryr3Yckh/anime-pat-1.gif","https://i.postimg.cc/bvYfK5TZ/anime-pat-2.gif","https://i.postimg.cc/XqphVSGv/anime-pat-3.gif","https://i.postimg.cc/qM9fvRGH/anime-pat-4.gif","https://i.postimg.cc/D0kjKJTx/eromanga-sensei-pat-pat-pat.gif","https://i.postimg.cc/hv5kxPWx/fantasista-doll-anime.gif","https://i.postimg.cc/W3DCVcJ1/kaede-azusagawa-kaede.gif","https://i.postimg.cc/fbPqBqgn/mai-sakurajima.gif","https://i.postimg.cc/nh0PQh4L/rika-higurashi.gif","https://i.postimg.cc/gkwFpR8K/senko-pat.gif","https://i.postimg.cc/mkkxt1qB/uwu-pats.gif"]
-			embed = discord.Embed(title=f"Uczestnik {od.name} głaszczę {dla.name}", description=f"", color=0xfceade)
+			embed = discord.Embed(title=f"Uczestnik {od.name} głaszcze {dla.name}", description=f"", color=0xfceade)
+			embed.set_image(url=f"{random.choice(kissa)}")
+			await interaction.response.send_message(embed=embed, ephemeral = False)
+		
+		@tree.command(name = "handshake", description= "Pozwala ci uścisnąć dłoń wybranej przez ciebie osobie.", guild = discord.Object(id = 698522294414344232))
+		async def self(interaction: discord.Integration, od: discord.Member, dla: discord.Member):
+			kissa = ["https://i.postimg.cc/W31B14hc/anime-handshake.gif","https://i.postimg.cc/85kSfHX3/anime-handshake-1.gif","https://i.postimg.cc/Dz6VhGfc/ban-meliodas.gif","https://i.postimg.cc/LXyMt1rs/bandori-bangdream.gif","https://i.postimg.cc/2SB8C2g7/bna-nazuna.gif","https://i.postimg.cc/J064zg1P/dab-mp100.gif","https://i.postimg.cc/L658bHT7/dyar-and.gif","https://i.postimg.cc/2S4RHJPM/fairy-tail-anime.gif","https://i.postimg.cc/FKyrL1rf/gundam-mobilesuitgundam.gif","https://i.postimg.cc/xjx0Hw2P/hand-shake-truce.gif","https://i.postimg.cc/50Jt7L7q/high-five-fist-bump.gif","https://i.postimg.cc/hPYtFHZG/infinite-stratos.gif","https://i.postimg.cc/5yHD8kBP/jojo-kakyoin.gif","https://i.postimg.cc/jj0q2yb0/link-click-shiguang-daili-ren.gif","https://i.postimg.cc/XYM6k3D9/makeout-handshake.gif","https://i.postimg.cc/Y0ZKVw2K/martin-mystery-billy.gif","https://i.postimg.cc/QCRwmkSj/nichijou-anime.gif","https://i.postimg.cc/h4wkKcnN/portgas-d-ace-ace.gif","https://i.postimg.cc/Z53ZG0yf/professor-layton-hand-shake.gif","https://i.postimg.cc/B6zVZcr2/sao-alicization.gif","https://i.postimg.cc/cJ0qPhWH/totally-agree-fist-bump.gif"]
+			embed = discord.Embed(title=f"{od.name} uściska dłoń {dla.name}", description=f"", color=0xfceade)
 			embed.set_image(url=f"{random.choice(kissa)}")
 			await interaction.response.send_message(embed=embed, ephemeral = False)
 
