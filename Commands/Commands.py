@@ -258,6 +258,7 @@ class CustomCommands:
 					if select.values[0] == "5":
 
 						embed = discord.Embed(title="Context menu:", description="Jest to drugi sposób na używanie komend Otaki-Chan żeby wywołać context menu należy kliknąć prawym przyciskiem myszy na uczestnika po czym przejechać do opcji aplikacje i powinniśmy ujrzeć nasze komendy które możemy ujrzeć.", color=0xfceade)
+						embed.set_image(url="https://i.postimg.cc/R0FRBqD8/image.png")
 						embed.set_thumbnail(url = config["avatar"])
 						await interaction.response.edit_message(embed=embed,view=MyButton())
 
@@ -278,7 +279,32 @@ class CustomCommands:
 			mchannel = discord.utils.get(interaction.guild.channels, id = 922781362514190386)
 			channel = discord.utils.get(interaction.guild.channels, id = 925191790284406805)
 			if interaction.channel == channel or interaction.channel == mchannel:
-				await interaction.response.send_message(f"{member.avatar}", ephemeral = False)
+				class MySelectView(View):
+					@discord.ui.select(
+						placeholder="Wybierz avatar.",
+							options=[
+
+								discord.SelectOption(
+									label="Główny",
+									value="1",
+								),
+
+								discord.SelectOption(
+									label="Serwerowy",
+									value="2",
+								),
+							],)
+					async def select_callback(self, interaction:discord.Integration, select: discord.ui.Select):
+						select.disabled = True
+
+						if select.values[0] == "1":
+							await interaction.response.edit_message(content=f"{member.avatar}",view=None)
+
+						if select.values[0] == "2":
+							await interaction.response.edit_message(content=f"{member.guild_avatar}",view=None)
+
+				view = MySelectView()
+				await interaction.response.send_message(view=view, ephemeral = True)
 			else:
 				await interaction.response.send_message(f"Hej {interaction.user.mention}, Nye jesteś na kanale {channel.mention}.",ephemeral = True)
 
@@ -413,14 +439,14 @@ class CustomCommands:
 
 		@tree.command(name = "hug", description= "Pozwala ci przytulić wybrano przez ciebie osobę.", guild = discord.Object(id = 698522294414344232))
 		async def self(interaction: discord.Integration, od: discord.Member, dla: discord.Member):
-			kissa = ["https://i.postimg.cc/R0kvrhJF/anime-cute.gif","https://i.postimg.cc/DzHw25H7/anime-hug.gif","https://i.postimg.cc/6pQWnDN9/catgirl-hug.gif","https://i.postimg.cc/NFYYMn4v/girl-anime.gif","https://i.postimg.cc/bwYJLZ1f/hug.gif","https://i.postimg.cc/3xLwq3Z4/hug-1.gif","https://i.postimg.cc/1RcsT9mm/hug-ana.gif","https://i.postimg.cc/L5TSZVCY/hug-anime.gif","https://i.postimg.cc/k4SXDKPK/hug-anime-1.gif","https://i.postimg.cc/9XGQhdpj/hug-anime-2.gif","https://i.postimg.cc/rwY8JQ85/hugs.gif","https://i.postimg.cc/VvBfWw6N/kitsune-upload-anime.gif","https://i.postimg.cc/Y0w2F0tV/kitsune-upload-anime-1.gif","https://i.postimg.cc/B624J32C/kobayashi-dragon-maid-anime-hug.gif"]
+			kissa = ["https://i.postimg.cc/R0kvrhJF/anime-cute.gif","https://i.postimg.cc/DzHw25H7/anime-hug.gif","https://i.postimg.cc/6pQWnDN9/catgirl-hug.gif","https://i.postimg.cc/NFYYMn4v/girl-anime.gif","https://i.postimg.cc/bwYJLZ1f/hug.gif","https://i.postimg.cc/3xLwq3Z4/hug-1.gif","https://i.postimg.cc/1RcsT9mm/hug-ana.gif","https://i.postimg.cc/L5TSZVCY/hug-anime.gif","https://i.postimg.cc/k4SXDKPK/hug-anime-1.gif","https://i.postimg.cc/9XGQhdpj/hug-anime-2.gif","https://i.postimg.cc/rwY8JQ85/hugs.gif","https://i.postimg.cc/VvBfWw6N/kitsune-upload-anime.gif","https://i.postimg.cc/Y0w2F0tV/kitsune-upload-anime-1.gif","https://i.postimg.cc/G3S1X9f9/h1.gif","https://i.postimg.cc/XY9SNLYy/h2.gif","https://i.postimg.cc/yNBqDRDp/h3.gif","https://i.postimg.cc/VLrPpmyg/h4.gif","https://i.postimg.cc/xdPwMdHf/h5.gif","https://i.postimg.cc/fLT6Khjx/h6.gif","https://i.postimg.cc/MHXJW8nW/h7.gif","https://i.postimg.cc/KYybtVHN/h8.gif","https://i.postimg.cc/gJgPF0kS/h9.gif","https://i.postimg.cc/VLpmk592/h10.gif","https://i.postimg.cc/R0QBddrz/h11.gif","https://i.postimg.cc/XJj0z53B/h12.gif","https://i.postimg.cc/T3bGLGC1/h13.gif","https://i.postimg.cc/CLzw0b8j/h14.gif","https://i.postimg.cc/WzKLzfZ0/h15.gif","https://i.postimg.cc/9F6HjKCh/h16.gif","https://i.postimg.cc/B624J32C/kobayashi-dragon-maid-anime-hug.gif"]
 			embed = discord.Embed(title=f"Uczestnik {od.name} przytula {dla.name}", description=f"", color=0xfceade)
 			embed.set_image(url=f"{random.choice(kissa)}")
 			await interaction.response.send_message(embed=embed, ephemeral = False)
 
 		@tree.command(name = "pat", description= "Pozwala ci pogłaskać wybrano przez ciebie osobę.", guild = discord.Object(id = 698522294414344232))
 		async def self(interaction: discord.Integration, od: discord.Member, dla: discord.Member):
-			kissa = ["https://i.postimg.cc/YS0yNBRz/aharen-aharen-san.gif","https://i.postimg.cc/1tLT57pc/anime-girl.gif","https://i.postimg.cc/pVcb3khT/anime-girl-1.gif","https://i.postimg.cc/hjSRR51J/anime-girl-pet.gif","https://i.postimg.cc/GpPnNCGw/anime-good-girl.gif","https://i.postimg.cc/XqdPZKLM/anime-head-pat.gif","https://i.postimg.cc/pTnG7Qg9/anime-pat.gif","https://i.postimg.cc/ryr3Yckh/anime-pat-1.gif","https://i.postimg.cc/bvYfK5TZ/anime-pat-2.gif","https://i.postimg.cc/XqphVSGv/anime-pat-3.gif","https://i.postimg.cc/qM9fvRGH/anime-pat-4.gif","https://i.postimg.cc/D0kjKJTx/eromanga-sensei-pat-pat-pat.gif","https://i.postimg.cc/hv5kxPWx/fantasista-doll-anime.gif","https://i.postimg.cc/W3DCVcJ1/kaede-azusagawa-kaede.gif","https://i.postimg.cc/fbPqBqgn/mai-sakurajima.gif","https://i.postimg.cc/nh0PQh4L/rika-higurashi.gif","https://i.postimg.cc/gkwFpR8K/senko-pat.gif","https://i.postimg.cc/mkkxt1qB/uwu-pats.gif"]
+			kissa = ["https://i.postimg.cc/YS0yNBRz/aharen-aharen-san.gif","https://i.postimg.cc/1tLT57pc/anime-girl.gif","https://i.postimg.cc/pVcb3khT/anime-girl-1.gif","https://i.postimg.cc/hjSRR51J/anime-girl-pet.gif","https://i.postimg.cc/GpPnNCGw/anime-good-girl.gif","https://i.postimg.cc/XqdPZKLM/anime-head-pat.gif","https://i.postimg.cc/pTnG7Qg9/anime-pat.gif","https://i.postimg.cc/ryr3Yckh/anime-pat-1.gif","https://i.postimg.cc/bvYfK5TZ/anime-pat-2.gif","https://i.postimg.cc/XqphVSGv/anime-pat-3.gif","https://i.postimg.cc/qM9fvRGH/anime-pat-4.gif","https://i.postimg.cc/D0kjKJTx/eromanga-sensei-pat-pat-pat.gif","https://i.postimg.cc/hv5kxPWx/fantasista-doll-anime.gif","https://i.postimg.cc/W3DCVcJ1/kaede-azusagawa-kaede.gif","https://i.postimg.cc/fbPqBqgn/mai-sakurajima.gif","https://i.postimg.cc/nh0PQh4L/rika-higurashi.gif","https://i.postimg.cc/Z5R42BN2/p1.gif","https://i.postimg.cc/7h9rQwZq/p2.gif","https://i.postimg.cc/2yrfwVmH/p3.gif","https://i.postimg.cc/bJQhkQXD/p4.gif","https://i.postimg.cc/rwPMkVCm/p5.gif","https://i.postimg.cc/gJ9pxg7b/p6.gif","https://i.postimg.cc/28TC0F1n/p7.gif","https://i.postimg.cc/L4t91MRC/p8.gif","https://i.postimg.cc/3w07rsnZ/p9.gif","https://i.postimg.cc/gkwFpR8K/senko-pat.gif","https://i.postimg.cc/mkkxt1qB/uwu-pats.gif"]
 			embed = discord.Embed(title=f"Uczestnik {od.name} głaszcze {dla.name}", description=f"", color=0xfceade)
 			embed.set_image(url=f"{random.choice(kissa)}")
 			await interaction.response.send_message(embed=embed, ephemeral = False)

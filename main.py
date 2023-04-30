@@ -100,32 +100,36 @@ class aclient(discord.Client):
 
 	async def on_member_join(self,member):
 		guild = client.get_guild(698522294414344232) #Id: Serwera Nya
-		welcome_channel = guild.get_channel(920080200308506676) # Id: Pogawędek Ayayaya 
-
-		responses = ["https://i.postimg.cc/JhnbmGfd/anime-welcome.gif",#senko
-					"https://i.postimg.cc/GtbsR9sx/school-live-cute.gif",#otwieranie drzwi
-					"https://i.postimg.cc/tgSNVhdj/noneed-yourewelcome.gif",#Mani hi
-					"https://i.postimg.cc/TwVWBnhP/welcome-to-the-server.gif",#migające welcome
-					"https://i.postimg.cc/cJ4cHDnh/welcome-1.gif",#hatsune miku
-					"https://i.postimg.cc/KcdR94hJ/n1.gif",#dotykanie butelki
-					"https://i.postimg.cc/XNZrcdmr/n2.gif",#powoli pojawiające się welcome
-					"https://i.postimg.cc/xqDDLW73/n3.gif",#welcome uśmiech
-					"https://i.postimg.cc/tCW78yXy/n4.gif",#przymulane machanie
-					"https://i.postimg.cc/2Sdm7SCb/n5.gif",#wspólne machanie
-					"https://i.postimg.cc/GmjQb0H9/ohayo.gif"] #ayaya
-
-		channel = member.guild.get_channel(926305651968315393)
-		embed = discord.Embed(title="Hej, Jestem Otaki-chan.", description=f"Cieszę się że dołączasz do naszej społeczności {member.mention}\n\n**Pamiętaj** jeśli będziesz potrzebować mojej **pomocy** wpisz ***/help***\n**Nie zapomnij** również o odwiedzeniu kanałów\n{channel.mention},\n#Kanały i role.", color=0xfceade)
-		embed.set_thumbnail(url=config["avatar"])
-		embed.set_image(url=f"{random.choice(responses)}")
-		embed.set_footer(text=f"Nick podczas dołączenia: {member.name}")
+		welcome_channel = guild.get_channel(922781362514190386) # Id: modowędki
+		embed = discord.Embed(title="Uczestnik:  <:arrowup:972095071115689985>", description=f"{member.mention} Znany nam jako {member.name} dołączył na serwer {guild.name}", color=0x56e455)
+		embed.set_thumbnail(url=member.avatar)
 		await welcome_channel.send(embed=embed)
 
 	async def on_member_update(self,before, after):
 		everyone = discord.utils.get(before.guild.roles, id=698522294414344232)
+		uczestnicy = discord.utils.get(before.guild.roles, id=920078527930445915)
+		zwiedzajacy = discord.utils.get(before.guild.roles, id=1091791939361325168)
+		# print(before.guild.member_count)
+		# print(after.guild.member_count)
 		if everyone in after.guild.roles:
 			role  = discord.utils.get(after.guild.roles, id=1093563230250614846)#kolorek dla osób po wejściu
 			await after.add_roles(role)
+		# if len(uczestnicy.members) < after.guild.roles:
+		# 	guild = client.get_guild(698522294414344232) #Id: Serwera Nya
+		# 	welcome_channel = guild.get_channel(920080200308506676) # Id: modowędki
+		# 	channel = after.guild.get_channel(926305651968315393)
+		# 	responses = ["https://i.postimg.cc/JhnbmGfd/anime-welcome.gif","https://i.postimg.cc/GtbsR9sx/school-live-cute.gif","https://i.postimg.cc/tgSNVhdj/noneed-yourewelcome.gif","https://i.postimg.cc/TwVWBnhP/welcome-to-the-server.gif","https://i.postimg.cc/cJ4cHDnh/welcome-1.gif","https://i.postimg.cc/KcdR94hJ/n1.gif","https://i.postimg.cc/XNZrcdmr/n2.gif","https://i.postimg.cc/xqDDLW73/n3.gif","https://i.postimg.cc/tCW78yXy/n4.gif","https://i.postimg.cc/2Sdm7SCb/n5.gif","https://i.postimg.cc/t47B12zg/w1.gif","https://i.postimg.cc/Sx5DcCZf/w2.gif","https://i.postimg.cc/GmjQb0H9/ohayo.gif"]
+
+		# 	embed = discord.Embed(title="Hej, Jestem Otaki-chan.", description=f"Cieszę się że dołączasz do naszej społeczności {after.mention}\n\n**Pamiętaj** jeśli będziesz potrzebować mojej **pomocy** wpisz ***/help***\n**Nie zapomnij** również o odwiedzeniu kanałów\n{channel.mention},\n#Kanały i role.", color=0xfceade)
+		# 	embed.set_footer(text=f"Nick podczas dołączenia: {after.name}")
+		# 	embed.set_image(url=f"{random.choice(responses)}")
+		# 	embed.set_thumbnail(url=config["avatar"])
+		# 	await welcome_channel.send(embed=embed)
+		# if zwiedzajacy.users.before < zwiedzajacy.users.after:
+
+
+			# embed.set_thumbnail(url=config["avatar"])
+			# await welcome_channel.send(embed=embed)
 
 	async def on_member_ban(self,guild,member):
 
@@ -148,7 +152,7 @@ class aclient(discord.Client):
 				check_ban = True
 		
 		if check_ban == False:
-			embed = discord.Embed(title="Uczestnik:", description=f"{member.mention} Znany nam jako {member.name} opuścił serwer {guild.name}", color=0xf54227)
+			embed = discord.Embed(title="Uczestnik:  <:arrowdown:972095071090507816>", description=f"{member.mention} Znany nam jako {member.name} opuścił serwer {guild.name}", color=0xf54227)
 			embed.set_thumbnail(url=member.avatar)
 			await goodbye_channel.send(embed=embed)
 
@@ -201,9 +205,10 @@ async def self(interaction: discord.Integration):
 async def self(interaction: discord.Integration):
 	check = time.time()
 	sec = check-start
-	sec = sec % (24 * 3600)
+	sec = sec % (365*24 * 3600)
+	day = sec // 365
+	sec %= 86400
 	hour = sec // 3600
-	day = hour // 24
 	sec %= 3600
 	min = sec // 60
 	sec %= 60
@@ -226,8 +231,13 @@ async def self(interaction: discord.Integration):
 				options=[
 
 					discord.SelectOption(
-						label="0.8",
+						label="0.8.1",
 						emoji="💮",
+						value="8",
+					),
+
+					discord.SelectOption(
+						label="0.8",
 						value="7",
 					),
 
@@ -264,6 +274,18 @@ async def self(interaction: discord.Integration):
 
 		async def select_callback(self, interaction:discord.Integration, select: discord.ui.Select):
 			select.disabled = True
+
+			if select.values[0] == "8":
+
+				embed = discord.Embed(title="Wersja: 0.8.1", description=f"", color=0xfceade)
+				embed.set_thumbnail(url=config["avatar"])
+				embed.add_field(name="Ulepszono:", value=f"/hug dodano wiecej gifów", inline=False)
+				embed.add_field(name="Ulepszono:", value=f"/pat dodano wiecej gifów", inline=False)
+				embed.add_field(name="Ulepszono:", value=f"/info dodano obrazek do context menu", inline=False)
+				embed.add_field(name="Ulepszono:", value=f"/avatar możliwość pobieranie avatara serwerowego.", inline=False)
+				embed.add_field(name="Naprawiono?:", value=f"/life_time", inline=False)
+
+				await interaction.response.edit_message(embed=embed,view=MyButton())
 
 			if select.values[0] == "7":
 
