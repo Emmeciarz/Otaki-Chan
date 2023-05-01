@@ -927,23 +927,32 @@ class CustomCommands:
 									emoji="🎉",
 									value="7",
 								),
+
+								discord.SelectOption(
+									label="Alt domyślny",
+									emoji="<a:panic2:921392599812689930> ",
+									value="8",
+								),
 							],)
 
 					async def select_callback(self, interaction:discord.Integration, select: discord.ui.Select):
 						select.disabled = True
 
-						#Pogawędki,Pogawędki+,Modowędki,Otaki-Mani-Chan,spamchat,Muzyka,Memy,Twórczości,Galeria,Archiwa,Techwędki,Helpdesk,Czatowędki,Dyskutowędki,PogawędkiVC,Pogawędki+VC,ModowędkiVC,PograwędkiVC,GawędkiVC,PoznawędkiVC,StreamwędkiVC
-						id_channel = [920080200308506676,924519066276859914,922781362514190386,925191790284406805,757956871607812258,698523673333858336,851148738163376198,1063854038636048496,1063876422285938749,959782877464244244,927594576590553108,1081553062319099964,923682859800199168,942133948367122452,942206391433711687,926455091861520384,921517809270411265,698524923659944057,767087869515923466,933815461899038830,962454168512131192]
-						#Regulamin i Weryfikacja,Kanały Tekstowe, Dodatkowo, Techniu, Kanały głosowe
-						id_channel_category = [927827745814216745,698522294414344233,923679130690674729,1080978917441142824,698522294414344235]
+						#Pogawędki,Pogawędki+,Modowędki,Otaki-Mani-Chan,Spamowędki,Muzyka,Memy,Twórczości,Galeria,Archiwa,Code,Czatowędki,Dyskutowędki,PogawędkiVC,Pogawędki+VC,ModowędkiVC,PograwędkiVC,GawędkiVC,PoznawędkiVC,StreamwędkiVC,Duetowędki,zbiór-informacji,biuro-moderacji,reklamodawcy
+						id_channel = [920080200308506676,924519066276859914,922781362514190386,925191790284406805,757956871607812258,698523673333858336,851148738163376198,1063854038636048496,1063876422285938749,959782877464244244,1081553062319099964,923682859800199168,942133948367122452,942206391433711687,926455091861520384,921517809270411265,698524923659944057,767087869515923466,933815461899038830,962454168512131192,1095506969206476871,926305651968315393,921516963145089054,1095054292441903205]
+						#Regulamin i Weryfikacja,Kanały Tekstowe, Verified, Bot ,Kanały głosowe
+						id_channel_category = [927827745814216745,698522294414344233,923679130690674729,1102580003083919370,698522294414344235]
 
 						if select.values[0] == "1":
 
-							name_table =["💬▏pogawędki","💎▏pogawędki-𝓹𝓵𝓾𝓼","📝▏modowędki","🔰▏otaki-mani-chan","💥▏spamchat","🎵▏muzyka","🃏▏memy","🎴▏twórczości","📁▏galeria","📝▏archiwa","💻▏techwędki","🔎▏helpdesk","🔇▏czatowędki","📢▏dyskutowędki","🎶▏Pogawędki","💎▏Pogawędki-𝓹𝓵𝓾𝓼","📝▏Modowędki","🎮▏Pograwędki","☕▏Gawędki","👥▏Poznawędki","🎥▏Streamwędki"]
+							name_table =["💬▏pogawędki","💎▏pogawędki-𝓹𝓵𝓾𝓼","📝▏modowędki","🔰▏otaki-mani-chan","💥▏spamowędki","🎵▏muzyka","🃏▏memy","🎴▏sztuka-własna","📁▏galeria","📝▏archiwa","🔎▏code","🔇▏czatowędki","📢▏dyskutowędki","🎶▏Pogawędki","💎▏Pogawędki-𝓹𝓵𝓾𝓼","📝▏Modowędki","🎮▏Pograwędki","☕▏Gawędki","👥▏Poznawędki","🎥▏Streamwędki","💑▏Duetowędki","📝▏zbiór-informacji","💼▏biuro-moderacji","📊▏reklamodawcy"]
 							rang = len(id_channel)
 
-							category_table = ["Regulaminy i Weryfikacje","kanały tekstowe","DODATKOwO","Techniu","Kanały głosowe"]
+							category_table = ["Regulaminy i Weryfikacje","kanały tekstowe","Verified","Bot","Kanały głosowe"]
 							rangc = len(id_channel_category)
+
+							uczestnicy_plus = discord.utils.get(interaction.guild.roles, id=920081493110423592)
+							await uczestnicy_plus.edit(display_icon="💎")
 
 							embed = discord.Embed(title="Wygląd: Domyślny", description=f"Ustawiono pomyślnie", color=0xfceade)
 							embed.set_thumbnail(url="https://i.postimg.cc/9fwTJ735/Untitled373-2.png")
@@ -961,11 +970,14 @@ class CustomCommands:
 
 						if select.values[0] == "2":
 							
-							name_table =["💬▏pogawędki","🌈▏pogawędki-𝓹𝓵𝓾𝓼","📝▏modowędki","🌾▏otaki-mani-chan","🍃▏spamchat","🎵▏muzyka","🦦▏memy","🌄▏twórczości","📁▏galeria","📝▏archiwa","💻▏techwędki","🔎▏helpdesk","🔇▏czatowędki","📢▏dyskutowędki","🎋▏Pogawędki","🌈▏Pogawędki-𝓹𝓵𝓾𝓼","📝▏Modowędki","🎮▏Pograwędki","🐣▏Gawędki","🌹▏Poznawędki","🎥▏Streamwędki"]
+							name_table =["💬▏pogawędki","🌈▏pogawędki-𝓹𝓵𝓾𝓼","📝▏modowędki","🌾▏otaki-mani-chan","🍃▏spamowędki","🎵▏muzyka","🦦▏memy","🌄▏sztuka-własna","📁▏galeria","📝▏archiwa","🔎▏code","🔇▏czatowędki","📢▏dyskutowędki","🎋▏Pogawędki","🌈▏Pogawędki-𝓹𝓵𝓾𝓼","📝▏Modowędki","🎮▏Pograwędki","🐣▏Gawędki","🌹▏Poznawędki","🎥▏Streamwędki","💑▏Duetowędki","📝▏zbiór-informacji","💼▏biuro-moderacji","📊▏reklamodawcy"]
 							rang = len(id_channel)
 
-							category_table = ["🌹Regulaminy i Weryfikacje","🌷kanały tekstowe","🌸DODATKOwO","🌼Techniu","🌺Kanały głosowe"]
+							category_table = ["🌹Regulaminy i Weryfikacje","🌷kanały tekstowe","🌸Verified","🌼Bot","🌺Kanały głosowe"]
 							rangc = len(id_channel_category)
+
+							uczestnicy_plus = discord.utils.get(interaction.guild.roles, id=920081493110423592)
+							await uczestnicy_plus.edit(display_icon="🌈")
 
 							embed = discord.Embed(title="Wygląd: Wiosenny", description=f"Ustawiono pomyślnie", color=0xfceade)
 							embed.set_thumbnail(url="https://i.postimg.cc/05pH96XK/spring.jpg")
@@ -983,11 +995,14 @@ class CustomCommands:
 
 						if select.values[0] == "3":
 
-							name_table =["💬▏pogawędki","🍊▏pogawędki-𝓹𝓵𝓾𝓼","📝▏modowędki","🍒▏otaki-mani-chan","⚡▏spamchat","🎵▏muzyka","🌞▏memy","🌅▏twórczości","📁▏galeria","📝▏archiwa","💻▏techwędki","🔎▏helpdesk","🔇▏czatowędki","📢▏dyskutowędki","🍨▏Pogawędki","🍊▏Pogawędki-𝓹𝓵𝓾𝓼","📝▏Modowędki","🎮▏Pograwędki","⛺▏Gawędki","🍻▏Poznawędki","🎥▏Streamwędki"]
+							name_table =["💬▏pogawędki","🍊▏pogawędki-𝓹𝓵𝓾𝓼","📝▏modowędki","🍒▏otaki-mani-chan","⚡▏spamowędki","🎵▏muzyka","🌞▏memy","🌅▏sztuka-własna","📁▏galeria","📝▏archiwa","🔎▏code","🔇▏czatowędki","📢▏dyskutowędki","🍨▏Pogawędki","🍊▏Pogawędki-𝓹𝓵𝓾𝓼","📝▏Modowędki","🎮▏Pograwędki","⛺▏Gawędki","🍻▏Poznawędki","🎥▏Streamwędki","💑▏Duetowędki","📝▏zbiór-informacji","💼▏biuro-moderacji","📊▏reklamodawcy"]
 							rang = len(id_channel)
 
-							category_table = ["🍉Regulaminy i Weryfikacje","🍇kanały tekstowe","🥕DODATKOwO","🌽Techniu","🍍Kanały głosowe"]
+							category_table = ["🍉Regulaminy i Weryfikacje","🍇kanały tekstowe","🥕Verified","🌽Bot","🍍Kanały głosowe"]
 							rangc = len(id_channel_category)
+
+							uczestnicy_plus = discord.utils.get(interaction.guild.roles, id=920081493110423592)
+							await uczestnicy_plus.edit(display_icon="🍊")
 
 							embed = discord.Embed(title="Wygląd: Letni", description=f"Ustawiono pomyślnie", color=0xfceade)
 							embed.set_thumbnail(url="https://i.postimg.cc/d3mW6XZj/summer.jpg")
@@ -1005,11 +1020,14 @@ class CustomCommands:
 						
 						if select.values[0] == "4":
 
-							name_table =["💬▏pogawędki","🍁▏pogawędki-𝓹𝓵𝓾𝓼","📝▏modowędki","🥓▏otaki-mani-chan","🍂▏spamchat","🎵▏muzyka","🐁▏memy","🌁▏twórczości","📁▏galeria","📝▏archiwa","💻▏techwędki","🔎▏helpdesk","🔇▏czatowędki","📢▏dyskutowędki","🪁▏Pogawędki","🍁▏Pogawędki-𝓹𝓵𝓾𝓼","📝▏Modowędki","🎮▏Pograwędki","🍷▏Gawędki","🥃▏Poznawędki","🎥▏Streamwędki"]
+							name_table =["💬▏pogawędki","🍁▏pogawędki-𝓹𝓵𝓾𝓼","📝▏modowędki","🥓▏otaki-mani-chan","🍂▏spamowędki","🎵▏muzyka","🐁▏memy","🌁▏sztuka-własna","📁▏galeria","📝▏archiwa","🔎▏code","🔇▏czatowędki","📢▏dyskutowędki","🪁▏Pogawędki","🍁▏Pogawędki-𝓹𝓵𝓾𝓼","📝▏Modowędki","🎮▏Pograwędki","🍷▏Gawędki","🥃▏Poznawędki","🎥▏Streamwędki","💑▏Duetowędki","📝▏zbiór-informacji","💼▏biuro-moderacji","📊▏reklamodawcy"]
 							rang = len(id_channel)
 
-							category_table = ["💦Regulaminy i Weryfikacje","💨kanały tekstowe","🦔DODATKOwO","🥀Techniu","🦊Kanały głosowe"]
+							category_table = ["💦Regulaminy i Weryfikacje","💨kanały tekstowe","🦔Verified","🥀Bot","🦊Kanały głosowe"]
 							rangc = len(id_channel_category)
+
+							uczestnicy_plus = discord.utils.get(interaction.guild.roles, id=920081493110423592)
+							await uczestnicy_plus.edit(display_icon="🍁")
 
 							embed = discord.Embed(title="Wygląd: Jesienny", description=f"Ustawiono pomyślnie", color=0xfceade)
 							embed.set_thumbnail(url="https://i.postimg.cc/kXqYGnL1/autumn.png")
@@ -1027,11 +1045,14 @@ class CustomCommands:
 						
 						if select.values[0] == "5":
 
-							name_table =["💬▏pogawędki","🎃▏pogawędki-𝓹𝓵𝓾𝓼","📝▏modowędki","🎭▏otaki-mani-chan","👻▏spamchat","🎵▏muzyka","💀▏memy","🌃▏twórczości","📁▏galeria","📝▏archiwa","💻▏techwędki","🔎▏helpdesk","🔇▏czatowędki","📢▏dyskutowędki","🤡▏Pogawędki","🎃▏Pogawędki-𝓹𝓵𝓾𝓼","📝▏Modowędki","🎮▏Pograwędki","🧛▏Gawędki","🧟▏Poznawędki","🎥▏Streamwędki"]
+							name_table =["💬▏pogawędki","🎃▏pogawędki-𝓹𝓵𝓾𝓼","📝▏modowędki","🎭▏otaki-mani-chan","👻▏spamowędki","🎵▏muzyka","💀▏memy","🌃▏sztuka-własna","📁▏galeria","📝▏archiwa","🔎▏code","🔇▏czatowędki","📢▏dyskutowędki","🤡▏Pogawędki","🎃▏Pogawędki-𝓹𝓵𝓾𝓼","📝▏Modowędki","🎮▏Pograwędki","🧛▏Gawędki","🧟▏Poznawędki","🎥▏Streamwędki","💑▏Duetowędki","📝▏zbiór-informacji","💼▏biuro-moderacji","📊▏reklamodawcy"]
 							rang = len(id_channel)
 
-							category_table = ["🧙Regulaminy i Weryfikacje","🧜 kanały tekstowe","😈DODATKOwO","🧚Techniu","👹Kanały głosowe"]
+							category_table = ["🧙Regulaminy i Weryfikacje","🧜 kanały tekstowe","😈Verified","🧚Bot","👹Kanały głosowe"]
 							rangc = len(id_channel_category)
+
+							uczestnicy_plus = discord.utils.get(interaction.guild.roles, id=920081493110423592)
+							await uczestnicy_plus.edit(display_icon="🎃")
 
 							embed = discord.Embed(title="Wygląd: Hallowinowy", description=f"Ustawiono pomyślnie", color=0xfceade)
 							embed.set_thumbnail(url="https://i.postimg.cc/4NMMCWcs/hallowin.jpg")
@@ -1049,11 +1070,14 @@ class CustomCommands:
 
 						if select.values[0] == "6":
 
-							name_table =["💬▏pogawędki","🧊▏pogawędki-𝓹𝓵𝓾𝓼","📝▏modowędki","🏒▏otaki-mani-chan","🧤▏spamchat","🎵▏muzyka","🥶▏memy","🏂🏼▏twórczości","📁▏galeria","📝▏archiwa","💻▏techwędki","🔎▏helpdesk","🔇▏czatowędki","📢▏dyskutowędki","🧣▏Pogawędki","🧊▏Pogawędki-𝓹𝓵𝓾𝓼","📝▏Modowędki","🎮▏Pograwędki","🐻▏Gawędki","⛄▏Poznawędki","🎥▏Streamwędki"]
+							name_table =["💬▏pogawędki","🧊▏pogawędki-𝓹𝓵𝓾𝓼","📝▏modowędki","🏒▏otaki-mani-chan","🧤▏spamowędki","🎵▏muzyka","🥶▏memy","🏂🏼▏sztuka-własna","📁▏galeria","📝▏archiwa","🔎▏code","🔇▏czatowędki","📢▏dyskutowędki","🧣▏Pogawędki","🧊▏Pogawędki-𝓹𝓵𝓾𝓼","📝▏Modowędki","🎮▏Pograwędki","🐻▏Gawędki","⛄▏Poznawędki","🎥▏Streamwędki","💑▏Duetowędki","📝▏zbiór-informacji","💼▏biuro-moderacji","📊▏reklamodawcy"]
 							rang = len(id_channel)
 
-							category_table = ["🧦Regulaminy i Weryfikacje","🐧kanały tekstowe","🦌DODATKOwO","🐏Techniu","🥾Kanały głosowe"]
+							category_table = ["🧦Regulaminy i Weryfikacje","🐧kanały tekstowe","🦌Verified","🐏Bot","🥾Kanały głosowe"]
 							rangc = len(id_channel_category)
+
+							uczestnicy_plus = discord.utils.get(interaction.guild.roles, id=920081493110423592)
+							await uczestnicy_plus.edit(display_icon="🧊")
 
 							embed = discord.Embed(title="Wygląd: Zimowy", description=f"Ustawiono pomyślnie", color=0xfceade)
 							embed.set_thumbnail(url="https://i.postimg.cc/4NPLhDgJ/winter.png")
@@ -1071,14 +1095,42 @@ class CustomCommands:
 
 						if select.values[0] == "7":
 
-							name_table =["💬▏pogawędki","🍾▏pogawędki-𝓹𝓵𝓾𝓼","📝▏modowędki","🥂▏otaki-mani-chan","💫▏spamchat","🎵▏muzyka","🥳▏memy","🎇▏twórczości","📁▏galeria","📝▏archiwa","💻▏techwędki","🔎▏helpdesk","🔇▏czatowędki","📢▏dyskutowędki","🎊▏Pogawędki","🍾▏Pogawędki-𝓹𝓵𝓾𝓼","📝▏Modowędki","🎮▏Pograwędki","🍸▏Gawędki","🎎▏Poznawędki","🎥▏Streamwędki"]
+							name_table =["💬▏pogawędki","🍾▏pogawędki-𝓹𝓵𝓾𝓼","📝▏modowędki","🥂▏otaki-mani-chan","💫▏spamowędki","🎵▏muzyka","🥳▏memy","🎇▏sztuka-własna","📁▏galeria","📝▏archiwa","🔎▏code","🔇▏czatowędki","📢▏dyskutowędki","🎊▏Pogawędki","🍾▏Pogawędki-𝓹𝓵𝓾𝓼","📝▏Modowędki","🎮▏Pograwędki","🍸▏Gawędki","🎎▏Poznawędki","🎥▏Streamwędki","💑▏Duetowędki","📝▏zbiór-informacji","💼▏biuro-moderacji","📊▏reklamodawcy"]
 							rang = len(id_channel)
 
-							category_table = ["⭐Regulaminy i Weryfikacje","🎁kanały tekstowe","🏮DODATKOwO","🎐Techniu","🎀Kanały głosowe"]
+							category_table = ["⭐Regulaminy i Weryfikacje","🎁kanały tekstowe","🏮Verified","🎐Bot","🎀Kanały głosowe"]
 							rangc = len(id_channel_category)
+
+							uczestnicy_plus = discord.utils.get(interaction.guild.roles, id=920081493110423592)
+							await uczestnicy_plus.edit(display_icon="🍾")
 
 							embed = discord.Embed(title="Wygląd: Nowo roczny", description=f"Ustawiono pomyślnie", color=0xfceade)
 							embed.set_thumbnail(url="https://i.postimg.cc/LszQdRkM/new-year.webp")
+							await interaction.response.edit_message(embed=embed,view=None)
+
+							for i in range(rang):
+
+								channel = discord.utils.get(interaction.guild.channels, id = id_channel[i])
+								await channel.edit(name=name_table[i])
+							
+							for i in range(rangc):
+
+								channel = discord.utils.get(interaction.guild.channels, id = id_channel_category[i])
+								await channel.edit(name=category_table[i])
+
+						if select.values[0] == "8":
+
+							name_table =["۞▏𐌓ዐᏵልᏔቹ𐌃ኡ𐌉","☆▏ᕵᓍᘜᗩᘺᘿᕲᔌᓰ-𝓹𝓵𝓾𝓼","♥▏ₘₒᴰₒᵂₑᴰₖᵢ","❶▏ⰙƬ𐤠ƘƖ-𐒄𐤠ƝƖ-ƇǶ𐤠Ɲ","╔▏ᴉ̸ʞ̸p̸ǝ̸ʍ̸o̸ɯ̸ɐ̸d̸s̸","♫▏𝚖༽𝚞༽𝚣༽𝚢༽𝚔༽𝚊༽","☛▏ጮቹጮቹ","❑▏丂乙ｲひズﾑ-Wﾚﾑ丂刀ﾑ","▼▏ꁅꅔ꒒ꁄꎡꀧꅔ","♥▏丹尺亡廾工山丹","◆▏𝐜⃥⃒̸𝐨⃥⃒̸𝐝⃥⃒̸𝐞⃥⃒̸","◢▏ᙅ乙ᗣㄒO山ᙓᗪК丨","◤▏ᴉ͟ʞ͟p͟ǝ͟ʍ͟o͟ʇ͟n͟ʞ͟s͟ʎ͟p͟","ల▏𐌓ዐᏵልᏔቹ𐌃ኡ𐌉","☆▏ᕵᓍᘜᗩᘺᘿᕲᔌᓰ-𝓹𝓵𝓾𝓼","♥▏ₘₒᴰₒᵂₑᴰₖᵢ","®▏𝕻⃦̳̿𝖔⃦̳̿𝖌⃦̳̿𝖗⃦̳̿𝖆⃦̳̿𝖜⃦̳̿𝖊⃦̳̿𝖉⃦̳̿𝖐⃦̳̿𝖎⃦̳̿","۩▏Ꮆꍏω€ᕲϰ♗","◙▏𝔭o҉𝔷n҉𝔞w҉𝔢d҉𝔨i҉","๑▏ꕷ𖢧𖦪𖤢ꛎ𖢑ꛃ𖤢𖤀𖢉ꛈ","♦▏ጋ፱ቹፕዐሠቹጋኡጎ","☆▏ԑъїѳя-їпӻѳяѫаcjї","«▏ƁƖꓴⱤⰙ-𐒄ⰙƊƸⱤ𐤠ƇʝƖ","→▏ⱤƸƘȴ𐤠𐒄ⰙƊ𐤠ⱲƇƳ"]
+							rang = len(id_channel)
+
+							category_table = ["✔ⱤɆ₲ɄⱠ₳₥ł₦Ɏ ł ₩ɆⱤɎ₣ł₭₳₵JɆ","▪ꈵꁲꃔꁲ꒒ꐔ ꋖꑀꈵꈜꋖꊿꅐꑀ","➋⍻ℇ☈⟟🜅⟟ℇ⟄","▤⌦⌾⍑","▨ǝ̸ʍ̸o̸s̸o̸ʅ̸ᵷ̸ ʎ̸ʅ̸ɐ̸u̸ɐ̸ꓘ̸"]
+							rangc = len(id_channel_category)
+
+							uczestnicy_plus = discord.utils.get(interaction.guild.roles, id=920081493110423592)
+							await uczestnicy_plus.edit(display_icon="⚙️")
+
+							embed = discord.Embed(title="Wygląd: Alternatywny domyślny", description=f"Ustawiono pomyślnie", color=0xfceade)
+							embed.set_thumbnail(url="https://i.postimg.cc/d1zJR2hT/tumblr-ppswxl-OBB71whrrloo5-500.gif")
 							await interaction.response.edit_message(embed=embed,view=None)
 
 							for i in range(rang):
