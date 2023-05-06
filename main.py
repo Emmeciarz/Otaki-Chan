@@ -8,6 +8,7 @@ import asyncio
 import platform
 import sysconfig
 import sys
+import subprocess
 from wavelink.ext import spotify
 from discord import app_commands
 from discord.ext import commands, tasks
@@ -112,6 +113,7 @@ class aclient(discord.Client):
 		void = discord.utils.get(before.guild.roles, id=1093563230250614846)
 		if everyone in after.guild.roles:
 			role  = discord.utils.get(after.guild.roles, id=1093563230250614846)#kolorek dla osób po wejściu
+			asyncio.sleep(3)
 			await after.add_roles(role)
 
 		if uczestnicy in before.roles and uczestnicy in after.roles:
@@ -211,12 +213,13 @@ async def self(interaction: discord.Integration):
 async def self(interaction: discord.Integration):
 	check = time.time()
 	sec = check-start
+	day = sec // (24 * 3600)
 	sec = sec % (24 * 3600)
 	hour = sec // 3600
 	sec %= 3600
 	min = sec // 60
 	sec %= 60
-	embed=discord.Embed(title="Czas działania:", description=f"%02d:%02d:%02d \nG:M:S" % (hour, min, sec), color=0xfceade)
+	embed=discord.Embed(title="Czas działania:", description=f"%02d:%02d:%02d:%02d \nD:G:M:S" % (day,hour, min, sec), color=0xfceade)
 
 	embed.set_thumbnail(url = config["avatar"])
 	await interaction.response.send_message(embed=embed,ephemeral = True)
@@ -235,8 +238,13 @@ async def self(interaction: discord.Integration):
 				options=[
 
 					discord.SelectOption(
-						label="0.8.3",
+						label="0.8.5",
 						emoji="💮",
+						value="10",
+					),
+
+					discord.SelectOption(
+						label="0.8.3",
 						value="9",
 					),
 
@@ -283,6 +291,14 @@ async def self(interaction: discord.Integration):
 
 		async def select_callback(self, interaction:discord.Integration, select: discord.ui.Select):
 			select.disabled = True
+
+			if select.values[0] == "10":
+
+				embed = discord.Embed(title="Wersja: 0.8.5", description=f"", color=0xfceade)
+				embed.set_thumbnail(url=config["avatar"])
+				embed.add_field(name="Naprawiono:", value=f"Małe nie dociągnięcia w systemie powiadomień.", inline=False)
+				embed.add_field(name="Dodano:", value=f"/klateczka BETA", inline=False)
+				await interaction.response.edit_message(embed=embed,view=MyButton())
 
 			if select.values[0] == "9":
 

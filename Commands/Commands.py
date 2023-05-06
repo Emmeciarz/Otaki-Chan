@@ -108,6 +108,7 @@ class CustomCommands:
 							embed = discord.Embed(title="Proszę, oto zbiór wszystkich komend dla moderacji serwera.", description="Wymienię ci wszystkie komendy jakie obsługuję, i co one robią.", color=0xfceade)
 							embed.set_thumbnail(url=config["avatar"])
 							embed.add_field(name=":white_check_mark: /sp", value=f"Ta komenda pozwala ci na usuwanie dużej ilości wiadomości.", inline=False)
+							embed.add_field(name="<:AAEC_karenThink:981262325061419009> /klateczka ", value=f"Pozwala ci na przetrzymanie/ograniczanie chatów.", inline=False)
 							embed.add_field(name=":white_check_mark: /otaki", value=f"Piszesz przeze mnie i wysyłam to na wybrany przez ciebie kanał.", inline=False)
 							embed.add_field(name=":white_check_mark: /ny", value=f"Pozwala wybrać zbiory pytań do wysłania dla uczestników.", inline=False)
 							embed.add_field(name=":white_check_mark: /volume", value=f"Pozwala ci zmienić głośność Otaki-chan", inline=False)
