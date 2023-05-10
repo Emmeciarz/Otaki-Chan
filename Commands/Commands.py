@@ -147,6 +147,7 @@ class CustomCommands:
 							embed = discord.Embed(title="Proszę, oto zbiór wszystkich komend dla Uczestników+ oraz Server Boosterów.", description="Wymienię ci wszystkie komendy jakie obsługuję, i co one robią.", color=0xfceade)
 							embed.set_thumbnail(url=config["avatar"])
 							embed.add_field(name=":white_check_mark: /kolorkowo", value=f"Wywołuje paletę kolorów.", inline=False)
+							embed.add_field(name=":white_check_mark: /booster_icon", value=f"Wywołuje specjalne icony dla server boosterów.", inline=False)
 							embed.add_field(name=":white_check_mark: /janken", value=f"Pozwala ci na zagranie z kimś w papier, kamień, nożyce.", inline=False)
 							embed.add_field(name=":white_check_mark: /embeds", value=f'Pozwala ci na tworzenie własnych wiadomości embedowych. Objaśnię ci każdą rubryczkę którą się tam wpisuje:', inline=False)
 							embed.add_field(name="title", value=f"Odpowiada za główny tytuł twojej wiadomości", inline=False)
@@ -218,6 +219,21 @@ class CustomCommands:
 								description="Ukazanie gdzie znajdują się odpowiedzi na temat serwera.",
 								value="6",
 								emoji="<:Peer:1098734415712108635>",
+								
+							),
+
+							discord.SelectOption(
+								label="Wytłumaczenie przypisów.",
+								description="Dokładne wytłumaczenie symboli wraz z wzorami i zapisami.",
+								value="7",
+								emoji="<a:question:1099070364996358235>",
+							),
+
+							discord.SelectOption(
+								label="Dlaczego slow mod ?",
+								description="Wytłumaczenie czemu jest włączony slow mod.",
+								value="8",
+								emoji="<a:hype5:921394314674855947>",
 							),
 						],)
 
@@ -271,7 +287,24 @@ class CustomCommands:
 						embed.add_field(name="Komendowe:", value=f"Wskazówki co do działania komend znajdziesz po wpisaniu /help wyświetlą ci się wszystkie zbiory komend jak i co robią poszczególne z nich.", inline=False)
 						embed.set_thumbnail(url = config["avatar"])
 						await interaction.response.edit_message(embed=embed,view=MyButton())
-					
+
+					if select.values[0] == "7":
+
+						embed = discord.Embed(title="Przepisy znaczeń do ról:", description="", color=0xfceade)
+						embed.add_field(name="Właściciela:", value=f"Emoji-<:Megumin:1095438874945269841>\nZapis słowny-|W|", inline=False)
+						embed.add_field(name="Moderacji:", value=f"Emoji-<:conflict:921394533449744394>\nZapis słowny-|M|", inline=False)
+						embed.add_field(name="Server Boosterów:", value=f"Emoji-<:love2:1063248751889743968>\nZapis słowny-|SB|", inline=False)
+						embed.add_field(name="Uczestników+", value=f"Emoji-💎,🌈,🍊,🍁,🎃,🧊,🍾\nZapis słowny-|U+|", inline=False)
+						embed.add_field(name="Uczestników", value=f"Emoji-Brak\nZapis słowny-|U|", inline=False)
+						embed.set_thumbnail(url = config["avatar"])
+						await interaction.response.edit_message(embed=embed,view=MyButton())
+
+					if select.values[0] == "8":
+
+						embed = discord.Embed(title="Slow mod:", description="Został włączany żeby nie tworzyć niepotrzebnego bałaganu na głównym kanale. Dzięki czemu wypowiedzi będą bardziej rozbudowane a same wiadomości nie będą rozrzucone po całym kanale głównym. Dzięki czemu łatwiej będzie nie tylko dla osób dyskutujących, ale również dla czytelników. Nie licząc moderacji, której slow mod ułatwia moderowanie, zwłaszcza podczas rajdów. Chroni też nas przed osobami, które wchodzą tylko po to, aby tworzyć niepotrzebny chaos.", color=0xfceade)
+						embed.set_thumbnail(url = config["avatar"])
+						await interaction.response.edit_message(embed=embed,view=MyButton())
+
 			view = MySelectView()
 			await interaction.response.send_message(view=view, ephemeral = True)
 
@@ -1149,6 +1182,73 @@ class CustomCommands:
 
 			else:
 				await interaction.response.send_message(f"Nye masz uprawnień do korzystania z tej komendy{interaction.user.mention}", ephemeral = True)
+
+		@tree.command(name = "booster_icon", description= "Wywołuje specjalne icony dla server boosterów.", guild = discord.Object(id = 698522294414344232))
+		async def self(interaction: discord.Integration):
+			if Role.server_booster(interaction) in interaction.user.roles:
+				astolfo = discord.utils.get(interaction.guild.roles, id=1105659042233335860)
+				furas = discord.utils.get(interaction.guild.roles, id=1105659052362579978)
+				emilia = discord.utils.get(interaction.guild.roles, id=1105659056913391658)
+				class MyView(View):
+					@discord.ui.button(emoji="<:whatsup:981260513197588550>", style=discord.ButtonStyle.primary)#Astolfo
+					async def primary1_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
+						button.disabled = True
+						await interaction.user.add_roles(astolfo)
+						embed.set_footer(text=f"Pomyślnie ustawiono {interaction.user.name}")
+						await interaction.response.edit_message(embed=embed)
+					
+					@discord.ui.button(emoji="<:love:927237845297553419>", style=discord.ButtonStyle.primary)#furas
+					async def primary2_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
+						button.disabled = True
+						await interaction.user.add_roles(furas)
+						embed.set_footer(text=f"Pomyślnie ustawiono {interaction.user.name}")
+						await interaction.response.edit_message(embed=embed)
+					
+					@discord.ui.button(emoji="<:yawn:1098730646836346910>", style=discord.ButtonStyle.primary)#Emilia
+					async def primary3_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
+						button.disabled = True
+						await interaction.user.add_roles(emilia)
+						embed.set_footer(text=f"Pomyślnie ustawiono {interaction.user.name}")
+						await interaction.response.edit_message(embed=embed)
+					
+					@discord.ui.button(label="X", style=discord.ButtonStyle.danger)#X
+					async def danger_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
+						button.disabled = True
+
+						if astolfo in interaction.user.roles:
+							await interaction.user.remove_roles(astolfo)
+							embed.set_footer(text=f"Pomyślnie usunięto {interaction.user.name}")
+							await interaction.response.edit_message(embed=embed)
+						elif furas in interaction.user.roles:
+							await interaction.user.remove_roles(furas)
+							embed.set_footer(text=f"Pomyślnie usunięto {interaction.user.name}")
+							await interaction.response.edit_message(embed=embed)
+						elif emilia in interaction.user.roles:
+							await interaction.user.remove_roles(emilia)
+							embed.set_footer(text=f"Pomyślnie usunięto {interaction.user.name}")
+							await interaction.response.edit_message(embed=embed)
+						else:
+							embed.set_footer(text=f"Nie ma co już usunąć {interaction.user.name}")
+							await interaction.response.edit_message(embed=embed)
+
+
+
+
+
+
+
+
+				embed = discord.Embed(title="Booster Icon", description="Dziękuje wam, że postanowiliście wesprzeć nasz wspólny serwer jest mi niezmiernie miło.", color=0xfceade)
+				embed.set_image(url="https://i.postimg.cc/nV1LmcNK/karen-love.gif")
+				embed.set_footer(text="Żeby wybrać icone należy kliknąć przycisk z emoji.\nNatomiast żeby ją usunąć na leży wybrać przycisk z 'X'.")
+				await interaction.response.send_message(embed=embed,view=MyView(),ephemeral = True)
+			else:
+				await interaction.response.send_message(f"Nye masz uprawnień do korzystania z tej komendy {interaction.user.mention} ponieważ jest to komenda dla wspierających.",ephemeral = True)
+
+		# @tree.command(name = "server_stats", description= "Pozwala ci na zobaczenie statystyk serwera Otakumania.", guild = discord.Object(id = 698522294414344232))
+
+
+
 
 		@tree.command(name = "janken", description= "Pozwala ci na zagranie z kimś w papier, kamień, nożyce.", guild = discord.Object(id = 698522294414344232))
 		async def self(interaction: discord.Integration, member: discord.Member):

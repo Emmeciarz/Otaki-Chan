@@ -49,6 +49,7 @@ class aclient(discord.Client):
 					"https://i.postimg.cc/WbZRbdRT/anime-heart.gif",#Hatsune 
 					"https://i.postimg.cc/jS6GPBd1/i-love-you-kiss.gif",#I love you
 					"https://i.postimg.cc/RCy5BcDg/neko-anime.gif",#cynamon heart
+					"https://i.postimg.cc/nV1LmcNK/karen-love.gif",#karen love
 					"https://i.postimg.cc/L5rr3p1c/snap.gif"]#azunya
 
 		embed = discord.Embed(title="O Dziękuje!", description=f"Jesteś bardzo kochano osobo że decydujesz się ulepszyć naszą społeczność.{member.mention}", color=0xfceade)
@@ -113,7 +114,7 @@ class aclient(discord.Client):
 		void = discord.utils.get(before.guild.roles, id=1093563230250614846)
 		if everyone in after.guild.roles:
 			role  = discord.utils.get(after.guild.roles, id=1093563230250614846)#kolorek dla osób po wejściu
-			asyncio.sleep(3)
+			await asyncio.sleep(3)
 			await after.add_roles(role)
 
 		if uczestnicy in before.roles and uczestnicy in after.roles:
@@ -238,8 +239,13 @@ async def self(interaction: discord.Integration):
 				options=[
 
 					discord.SelectOption(
-						label="0.8.5",
+						label="0.8.6",
 						emoji="💮",
+						value="11",
+					),
+
+					discord.SelectOption(
+						label="0.8.5",
 						value="10",
 					),
 
@@ -291,6 +297,15 @@ async def self(interaction: discord.Integration):
 
 		async def select_callback(self, interaction:discord.Integration, select: discord.ui.Select):
 			select.disabled = True
+
+			if select.values[0] == "11":
+
+				embed = discord.Embed(title="Wersja: 0.8.6", description=f"", color=0xfceade)
+				embed.set_thumbnail(url=config["avatar"])
+				embed.add_field(name="Zaktualizowano:", value=f"/info", inline=False)
+				embed.add_field(name="Zaktualizowano:", value=f"/klateczka do wersji finalnej", inline=False)
+				embed.add_field(name="Dodano:", value=f"/booster_icon", inline=False)
+				await interaction.response.edit_message(embed=embed,view=MyButton())
 
 			if select.values[0] == "10":
 
