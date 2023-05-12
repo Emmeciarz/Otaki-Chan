@@ -114,7 +114,7 @@ class aclient(discord.Client):
 		void = discord.utils.get(before.guild.roles, id=1093563230250614846)
 		if everyone in after.guild.roles:
 			role  = discord.utils.get(after.guild.roles, id=1093563230250614846)#kolorek dla osób po wejściu
-			await asyncio.sleep(3)
+			await asyncio.sleep(1)
 			await after.add_roles(role)
 
 		if uczestnicy in before.roles and uczestnicy in after.roles:
@@ -239,8 +239,13 @@ async def self(interaction: discord.Integration):
 				options=[
 
 					discord.SelectOption(
-						label="0.8.6",
+						label="0.8.7",
 						emoji="💮",
+						value="12",
+					),
+
+					discord.SelectOption(
+						label="0.8.6",
 						value="11",
 					),
 
@@ -297,6 +302,14 @@ async def self(interaction: discord.Integration):
 
 		async def select_callback(self, interaction:discord.Integration, select: discord.ui.Select):
 			select.disabled = True
+
+			if select.values[0] == "12":
+
+				embed = discord.Embed(title="Wersja: 0.8.7", description=f"", color=0xfceade)
+				embed.set_thumbnail(url=config["avatar"])
+				embed.add_field(name="Zaktualizowano:", value=f"/kolorkowo", inline=False)
+				embed.add_field(name="Zaktualizowano:", value=f"/booster_icon", inline=False)
+				await interaction.response.edit_message(embed=embed,view=MyButton())
 
 			if select.values[0] == "11":
 

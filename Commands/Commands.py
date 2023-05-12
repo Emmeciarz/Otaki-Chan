@@ -552,223 +552,160 @@ class CustomCommands:
 
 		@tree.command(name = "kolorkowo", description= "Wywołuje paletę kolorów.", guild = discord.Object(id = 698522294414344232))
 		async def self(interaction: discord.Integration):
-
-			server_id = 698522294414344232
 			if Role.moderatorzy(interaction) in interaction.user.roles or Role.administrator(interaction) in interaction.user.roles or Role.uczestnicy_plus(interaction) in interaction.user.roles or Role.server_booster(interaction) in interaction.user.roles:
+				kolorki = discord.utils.get(interaction.guild.roles, id=1091875414420508722)
+				red = discord.utils.get(interaction.guild.roles, id=927892168750796810)
+				aussie_sunset = discord.utils.get(interaction.guild.roles, id=927894148164517929)
+				neon_orange = discord.utils.get(interaction.guild.roles, id=927892009140768798)
+				aqua_marine = discord.utils.get(interaction.guild.roles, id=927890415334596628)
+				pastel_pink = discord.utils.get(interaction.guild.roles, id=927892571370438707)
+				white = discord.utils.get(interaction.guild.roles, id=927893071423754310)
+				neon_pink = discord.utils.get(interaction.guild.roles, id=927892737733324811)
+				yellow = discord.utils.get(interaction.guild.roles, id=927891257139802193)
+				bright_blue = discord.utils.get(interaction.guild.roles, id=927889321929875467)
 				class MyView(View):
-						@discord.ui.button(label="1", style=discord.ButtonStyle.primary)
-						async def primary1_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
+					if Role.server_booster(interaction) in interaction.user.roles:
+						@discord.ui.button(label="S1", style=discord.ButtonStyle.primary)
+						async def primarys1_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
 							button.disabled = True
-							role = discord.utils.get(client.get_guild(server_id).roles, id=(927889321929875467))#Bright Blue
-							await interaction.user.add_roles(role)
-							role2 = discord.utils.get(client.get_guild(server_id).roles, id=(1091875414420508722))#White
-							await interaction.user.add_roles(role2)
-							await interaction.response.send_message(f"Pomyślnie wybrano kolor {role}",ephemeral = True)
-
-						@discord.ui.button(label="2", style=discord.ButtonStyle.primary)
-						async def primary2_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
+							await interaction.user.add_roles(red)
+							await interaction.user.add_roles(kolorki)
+							embed.set_footer(text=f"Pomyślnie ustawiono {interaction.user.name}")
+							await interaction.response.edit_message(embed=embed)
+						
+						@discord.ui.button(label="S2", style=discord.ButtonStyle.primary)
+						async def primarys2_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
 							button.disabled = True
-							role = discord.utils.get(client.get_guild(server_id).roles, id=(927890415334596628))#Medium Aqua Marine
-							await interaction.user.add_roles(role)
-							role2 = discord.utils.get(client.get_guild(server_id).roles, id=(1091875414420508722))#White
-							await interaction.user.add_roles(role2)
-							await interaction.response.send_message(f"Pomyślnie wybrano kolor {role}",ephemeral = True)
-
-						@discord.ui.button(label="3", style=discord.ButtonStyle.primary)
-						async def primary3_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
+							await interaction.user.add_roles(aussie_sunset)
+							await interaction.user.add_roles(kolorki)
+							embed.set_footer(text=f"Pomyślnie ustawiono {interaction.user.name}")
+							await interaction.response.edit_message(embed=embed)
+						
+						@discord.ui.button(label="S3", style=discord.ButtonStyle.primary)
+						async def primarys3_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
 							button.disabled = True
-							role = discord.utils.get(client.get_guild(server_id).roles, id=(927890916738478120))#Forest Green
-							await interaction.user.add_roles(role)
-							role2 = discord.utils.get(client.get_guild(server_id).roles, id=(1091875414420508722))#White
-							await interaction.user.add_roles(role2)
-							await interaction.response.send_message(f"Pomyślnie wybrano kolor {role}",ephemeral = True)
-
-						@discord.ui.button(label="4", style=discord.ButtonStyle.primary)
-						async def primary4_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
+							await interaction.user.add_roles(neon_orange)
+							await interaction.user.add_roles(kolorki)
+							embed.set_footer(text=f"Pomyślnie ustawiono {interaction.user.name}")
+							await interaction.response.edit_message(embed=embed)
+						
+						@discord.ui.button(label="S4", style=discord.ButtonStyle.primary)
+						async def primarys4_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
 							button.disabled = True
-							role = discord.utils.get(client.get_guild(server_id).roles, id=(927891029661720606))#Green Apple
-							await interaction.user.add_roles(role)
-							role2 = discord.utils.get(client.get_guild(server_id).roles, id=(1091875414420508722))#White
-							await interaction.user.add_roles(role2)
-							await interaction.response.send_message(f"Pomyślnie wybrano kolor {role}",ephemeral = True)
-
-						@discord.ui.button(label="5", style=discord.ButtonStyle.primary)
-						async def primary5_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
+							await interaction.user.add_roles(aqua_marine)
+							await interaction.user.add_roles(kolorki)
+							embed.set_footer(text=f"Pomyślnie ustawiono {interaction.user.name}")
+							await interaction.response.edit_message(embed=embed)
+						
+						@discord.ui.button(label="S5", style=discord.ButtonStyle.primary)
+						async def primarys5_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
 							button.disabled = True
-							role = discord.utils.get(client.get_guild(server_id).roles, id=(927891257139802193))#Yellow
-							await interaction.user.add_roles(role)
-							role2 = discord.utils.get(client.get_guild(server_id).roles, id=(1091875414420508722))#White
-							await interaction.user.add_roles(role2)
-							await interaction.response.send_message(f"Pomyślnie wybrano kolor {role}",ephemeral = True)
+							await interaction.user.add_roles(pastel_pink)
+							await interaction.user.add_roles(kolorki)
+							embed.set_footer(text=f"Pomyślnie ustawiono {interaction.user.name}")
+							await interaction.response.edit_message(embed=embed)
+						
+					@discord.ui.button(label="1", style=discord.ButtonStyle.gray)
+					async def gray1_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
+						button.disabled = True
+						await interaction.user.add_roles(white)
+						await interaction.user.add_roles(kolorki)
+						embed.set_footer(text=f"Pomyślnie ustawiono {interaction.user.name}")
+						await interaction.response.edit_message(embed=embed)
+					
+					@discord.ui.button(label="2", style=discord.ButtonStyle.gray)
+					async def gray2_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
+						button.disabled = True
+						await interaction.user.add_roles(neon_pink)
+						await interaction.user.add_roles(kolorki)
+						embed.set_footer(text=f"Pomyślnie ustawiono {interaction.user.name}")
+						await interaction.response.edit_message(embed=embed)
+					
+					@discord.ui.button(label="3", style=discord.ButtonStyle.gray)
+					async def gray3_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
+						button.disabled = True
+						await interaction.user.add_roles(yellow)
+						await interaction.user.add_roles(kolorki)
+						embed.set_footer(text=f"Pomyślnie ustawiono {interaction.user.name}")
+						await interaction.response.edit_message(embed=embed)
+					
+					@discord.ui.button(label="4", style=discord.ButtonStyle.gray)
+					async def gray4_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
+						button.disabled = True
+						await interaction.user.add_roles(bright_blue)
+						await interaction.user.add_roles(kolorki)
+						embed.set_footer(text=f"Pomyślnie ustawiono {interaction.user.name}")
+						await interaction.response.edit_message(embed=embed)
+					
+					@discord.ui.button(label="X", style=discord.ButtonStyle.danger)
+					async def danger_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
+						button.disabled = True
+						if red in interaction.user.roles:
+							await interaction.user.remove_roles(red)
+							embed.set_footer(text=f"Pomyślnie usunięto {interaction.user.name}")
+							await interaction.response.edit_message(embed=embed)
+						elif aussie_sunset in interaction.user.roles:
+							await interaction.user.remove_roles(aussie_sunset)
+							embed.set_footer(text=f"Pomyślnie usunięto {interaction.user.name}")
+							await interaction.response.edit_message(embed=embed)
+						elif neon_orange in interaction.user.roles:
+							await interaction.user.remove_roles(neon_orange)
+							embed.set_footer(text=f"Pomyślnie usunięto {interaction.user.name}")
+							await interaction.response.edit_message(embed=embed)
+						elif aqua_marine in interaction.user.roles:
+							await interaction.user.remove_roles(aqua_marine)
+							embed.set_footer(text=f"Pomyślnie usunięto {interaction.user.name}")
+							await interaction.response.edit_message(embed=embed)
+						elif pastel_pink in interaction.user.roles:
+							await interaction.user.remove_roles(pastel_pink)
+							embed.set_footer(text=f"Pomyślnie usunięto {interaction.user.name}")
+							await interaction.response.edit_message(embed=embed)
+						elif white in interaction.user.roles:
+							await interaction.user.remove_roles(white)
+							embed.set_footer(text=f"Pomyślnie usunięto {interaction.user.name}")
+							await interaction.response.edit_message(embed=embed)
+						elif neon_pink in interaction.user.roles:
+							await interaction.user.remove_roles(neon_pink)
+							embed.set_footer(text=f"Pomyślnie usunięto {interaction.user.name}")
+							await interaction.response.edit_message(embed=embed)
+						elif yellow in interaction.user.roles:
+							await interaction.user.remove_roles(yellow)
+							embed.set_footer(text=f"Pomyślnie usunięto {interaction.user.name}")
+							await interaction.response.edit_message(embed=embed)
+						elif bright_blue in interaction.user.roles:
+							await interaction.user.remove_roles(bright_blue)
+							embed.set_footer(text=f"Pomyślnie usunięto {interaction.user.name}")
+							await interaction.response.edit_message(embed=embed)
+						else:
+							embed.set_footer(text=f"Nie ma co już usunąć {interaction.user.name}")
+							await interaction.user.remove_roles(kolorki)
+							await interaction.response.edit_message(embed=embed)
 
-						@discord.ui.button(label="6", style=discord.ButtonStyle.primary)
-						async def primary6_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
-							button.disabled = True
-							role = discord.utils.get(client.get_guild(server_id).roles, id=(927891380980830238))#Beer
-							await interaction.user.add_roles(role)
-							role2 = discord.utils.get(client.get_guild(server_id).roles, id=(1091875414420508722))#White
-							await interaction.user.add_roles(role2)
-							await interaction.response.send_message(f"Pomyślnie wybrano kolor {role}",ephemeral = True)
+				embed = discord.Embed(title="Kolorkowo", description="", color=0xfceade)
+				if Role.uczestnicy_plus(interaction) in interaction.user.roles:
+					stopien = "Ograniczony | Uczestnicy+"
+					embed.set_image(url="https://i.postimg.cc/RZCVvMNB/yuumei-girl-wall-painting-paint-palette-color-colorful-tripo.jpg")
+				if Role.server_booster(interaction) in interaction.user.roles:
+					stopien = "Pełny | Server Booster"
+					embed.set_image(url="https://i.postimg.cc/wjWxvSms/Wallpaper-Dog-20453890.jpg")
+				embed.add_field(name="Stopień odblokowania:", value=f"**{stopien}**", inline=False)
+				embed.add_field(name="Paleta:", value=f"", inline=False)
+				if Role.server_booster(interaction) in interaction.user.roles:
+					embed.add_field(name="Server Booster", value=f"", inline=False)
+					embed.add_field(name="S1.Red", value=f"<@&927892168750796810>", inline=True)
+					embed.add_field(name="S2.Aussie Sunset", value=f"<@&927894148164517929>", inline=True)
+					embed.add_field(name="S3.Neon Orange", value=f"<@&927892009140768798>", inline=True)
+					embed.add_field(name="S4.Aqua Marine", value=f"<@&927890415334596628>", inline=True)
+					embed.add_field(name="S5.Pastel Pink", value=f"<@&927892571370438707>", inline=True)
 
-						@discord.ui.button(label="7", style=discord.ButtonStyle.primary)
-						async def primary7_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
-							button.disabled = True
-							role = discord.utils.get(client.get_guild(server_id).roles, id=(927891465454096395))#Brown Sugar
-							await interaction.user.add_roles(role)
-							role2 = discord.utils.get(client.get_guild(server_id).roles, id=(1091875414420508722))#White
-							await interaction.user.add_roles(role2)
-							await interaction.response.send_message(f"Pomyślnie wybrano kolor {role}",ephemeral = True)
-
-						@discord.ui.button(label="8", style=discord.ButtonStyle.primary)
-						async def primary8_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
-							button.disabled = True
-							role = discord.utils.get(client.get_guild(server_id).roles, id=(927892009140768798))#Neon Orange
-							await interaction.user.add_roles(role)
-							role2 = discord.utils.get(client.get_guild(server_id).roles, id=(1091875414420508722))#White
-							await interaction.user.add_roles(role2)
-							await interaction.response.send_message(f"Pomyślnie wybrano kolor {role}",ephemeral = True)
-
-						@discord.ui.button(label="9", style=discord.ButtonStyle.primary)
-						async def primary9_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
-							button.disabled = True
-							role = discord.utils.get(client.get_guild(server_id).roles, id=(927892168750796810))#Red
-							await interaction.user.add_roles(role)
-							role2 = discord.utils.get(client.get_guild(server_id).roles, id=(1091875414420508722))#White
-							await interaction.user.add_roles(role2)
-							await interaction.response.send_message(f"Pomyślnie wybrano kolor {role}",ephemeral = True)
-
-
-						@discord.ui.button(label="10", style=discord.ButtonStyle.primary)
-						async def primary10_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
-							button.disabled = True
-							role = discord.utils.get(client.get_guild(server_id).roles, id=(927894148164517929))#Aussie Sunset
-							await interaction.user.add_roles(role)
-							role2 = discord.utils.get(client.get_guild(server_id).roles, id=(1091875414420508722))#White
-							await interaction.user.add_roles(role2)
-							await interaction.response.send_message(f"Pomyślnie wybrano kolor {role}",ephemeral = True)
-
-
-						@discord.ui.button(label="11", style=discord.ButtonStyle.primary)
-						async def primary11_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
-							button.disabled = True
-							role = discord.utils.get(client.get_guild(server_id).roles, id=(927892425920364564))#Plum Velvet
-							await interaction.user.add_roles(role)
-							role2 = discord.utils.get(client.get_guild(server_id).roles, id=(1091875414420508722))#White
-							await interaction.user.add_roles(role2)
-							await interaction.response.send_message(f"Pomyślnie wybrano kolor {role}",ephemeral = True)
-
-
-						@discord.ui.button(label="12", style=discord.ButtonStyle.primary)
-						async def primary12_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
-							button.disabled = True
-							role = discord.utils.get(client.get_guild(server_id).roles, id=(927892737733324811))#Neon Pink
-							await interaction.user.add_roles(role)
-							role2 = discord.utils.get(client.get_guild(server_id).roles, id=(1091875414420508722))#White
-							await interaction.user.add_roles(role2)
-							await interaction.response.send_message(f"Pomyślnie wybrano kolor {role}",ephemeral = True)
-
-						@discord.ui.button(label="13", style=discord.ButtonStyle.primary)
-						async def primary13_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
-							button.disabled = True
-							role = discord.utils.get(client.get_guild(server_id).roles, id=(927892571370438707))#Pastel Pink
-							await interaction.user.add_roles(role)
-							role2 = discord.utils.get(client.get_guild(server_id).roles, id=(1091875414420508722))#White
-							await interaction.user.add_roles(role2)
-							await interaction.response.send_message(f"Pomyślnie wybrano kolor {role}",ephemeral = True)
-
-						@discord.ui.button(label="14", style=discord.ButtonStyle.primary)
-						async def primary14_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
-							button.disabled = True
-							role = discord.utils.get(client.get_guild(server_id).roles, id=(927893071423754310))#White
-							role2 = discord.utils.get(client.get_guild(server_id).roles, id=(1091875414420508722))#White
-							await interaction.user.add_roles(role2)
-							await interaction.user.add_roles(role)
-							await interaction.response.send_message(f"Pomyślnie wybrano kolor {role}",ephemeral = True)
-
-						@discord.ui.button(label="X", style=discord.ButtonStyle.danger)
-						async def danger_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
-							button.disabled = True
-							white = discord.utils.get(client.get_guild(server_id).roles, id=(927893071423754310))#White
-							Pastel_Pink = discord.utils.get(client.get_guild(server_id).roles, id=(927892571370438707))#Pastel Pink
-							Neon_Pink = discord.utils.get(client.get_guild(server_id).roles, id=(927892737733324811))#Neon Pink
-							Plum_Velvet = discord.utils.get(client.get_guild(server_id).roles, id=(927892425920364564))#Plum Velvet
-							Aussie_Sunset = discord.utils.get(client.get_guild(server_id).roles, id=(927894148164517929))#Aussie Sunset
-							Red = discord.utils.get(client.get_guild(server_id).roles, id=(927892168750796810))#Red
-							Neon_Orange = discord.utils.get(client.get_guild(server_id).roles, id=(927892009140768798))#Neon Orange
-							Brown_Sugar = discord.utils.get(client.get_guild(server_id).roles, id=(927891465454096395))#Brown Sugar
-							Beer = discord.utils.get(client.get_guild(server_id).roles, id=(927891380980830238))#Beer
-							Yellow = discord.utils.get(client.get_guild(server_id).roles, id=(927891257139802193))#Yellow
-							Green_Apple = discord.utils.get(client.get_guild(server_id).roles, id=(927891029661720606))#Green Apple
-							Forest_Green = discord.utils.get(client.get_guild(server_id).roles, id=(927890916738478120))#Forest Green
-							Medium_Aqua_Marine = discord.utils.get(client.get_guild(server_id).roles, id=(927890415334596628))#Medium Aqua Marine
-							Bright_Blue = discord.utils.get(client.get_guild(server_id).roles, id=(927889321929875467))#Bright Blue
-							if white in interaction.user.roles:
-								await interaction.user.remove_roles(white)
-								await interaction.response.send_message(f"Pomyślnie wyczyszczono {white}.",ephemeral = True)
-
-							elif Pastel_Pink in interaction.user.roles:
-								await interaction.user.remove_roles(Pastel_Pink)
-								await interaction.response.send_message(f"Pomyślnie wyczyszczono {Pastel_Pink}.",ephemeral = True)
-
-							elif Neon_Pink in interaction.user.roles:
-								await interaction.user.remove_roles(Neon_Pink)
-								await interaction.response.send_message(f"Pomyślnie wyczyszczono {Neon_Pink}.",ephemeral = True)
-
-							elif Plum_Velvet in interaction.user.roles:
-								await interaction.user.remove_roles(Plum_Velvet)
-								await interaction.response.send_message(f"Pomyślnie wyczyszczono {Plum_Velvet}.",ephemeral = True)
-
-							elif Aussie_Sunset in interaction.user.roles:
-								await interaction.user.remove_roles(Aussie_Sunset)
-								await interaction.response.send_message(f"Pomyślnie wyczyszczono {Aussie_Sunset}.",ephemeral = True)
-
-							elif Red in interaction.user.roles:
-								await interaction.user.remove_roles(Red)
-								await interaction.response.send_message(f"Pomyślnie wyczyszczono {Red}.",ephemeral = True)
-
-							elif Neon_Orange in interaction.user.roles:
-								await interaction.user.remove_roles(Neon_Orange)
-								await interaction.response.send_message(f"Pomyślnie wyczyszczono {Neon_Orange}.",ephemeral = True)
-							
-							elif Brown_Sugar in interaction.user.roles:
-								await interaction.user.remove_roles(Brown_Sugar)
-								await interaction.response.send_message(f"Pomyślnie wyczyszczono {Brown_Sugar}.",ephemeral = True)
-
-							elif Beer in interaction.user.roles:
-								await interaction.user.remove_roles(Beer)
-								await interaction.response.send_message(f"Pomyślnie wyczyszczono {Beer}.",ephemeral = True)
-
-							elif Yellow in interaction.user.roles:
-								await interaction.user.remove_roles(Yellow)
-								await interaction.response.send_message(f"Pomyślnie wyczyszczono {Yellow}.",ephemeral = True)
-							
-							elif Green_Apple in interaction.user.roles:
-								await interaction.user.remove_roles(Green_Apple)
-								await interaction.response.send_message(f"Pomyślnie wyczyszczono {Green_Apple}.",ephemeral = True)
-
-							elif Forest_Green in interaction.user.roles:
-								await interaction.user.remove_roles(Forest_Green)
-								await interaction.response.send_message(f"Pomyślnie wyczyszczono {Forest_Green}.",ephemeral = True)
-
-							elif Medium_Aqua_Marine in interaction.user.roles:
-								await interaction.user.remove_roles(Medium_Aqua_Marine)
-								await interaction.response.send_message(f"Pomyślnie wyczyszczono {Medium_Aqua_Marine}.",ephemeral = True)
-							
-							elif Bright_Blue in interaction.user.roles:
-								await interaction.user.remove_roles(Bright_Blue)
-								await interaction.response.send_message(f"Pomyślnie wyczyszczono {Bright_Blue}.",ephemeral = True)
-							
-							else:
-								role = discord.utils.get(client.get_guild(server_id).roles, id=(1091875414420508722))#kolorek
-								await interaction.user.remove_roles(role)
-								await interaction.response.send_message(f"Już wyczyściłeś wszystkie kolory {interaction.user.mention}",ephemeral = True)
-
-				embed = discord.Embed(title="Kolorkowo", description="**1.<@&927889321929875467>**\n**2.<@&927890415334596628>**\n**3.<@&927890916738478120>**\n**4.<@&927891029661720606>**\n**5.<@&927891257139802193>**\n**6.<@&927891380980830238>**\n**7.<@&927891465454096395>**\n**8.<@&927892009140768798>**\n**9.<@&927892168750796810>**\n**10.<@&927894148164517929>**\n**11.<@&927892425920364564>**\n**12.<@&927892737733324811>**\n**13.<@&927892571370438707>**\n**14.<@&927893071423754310>**\n**X.__Usuwa obecnie wybrany kolor.__**", color=0xfceade)
+				embed.add_field(name="Uczestnicy+", value=f"", inline=False)
+				embed.add_field(name="1.White", value=f"<@&927893071423754310>", inline=True)
+				embed.add_field(name="2.Neon Pink", value=f"<@&927892737733324811>", inline=True)
+				embed.add_field(name="3.Yellow", value=f"<@&927891257139802193>", inline=True)
+				embed.add_field(name="4.Bright Blue", value=f"<@&927889321929875467>", inline=True)
 				embed.set_thumbnail(url="https://i.postimg.cc/dQxjNx3B/e8637a5b750d32dad7a3f7da273ee134.png")
-				embed.set_footer(text="Żeby wybrać kolorek należy kliknąć przycisk z odpowiadającym\nmu numerkiem. Natomiast żeby go usunąć na leży wybrać ostatni przycisk.")
-
-				view = MyView()
-				await interaction.response.send_message(embed=embed, view=view ,ephemeral = True)
+				embed.set_footer(text="Żeby wybrać kolorek należy nacisnąć na przycisk odpowiadający wybranemu kolorkowi, aby wybrać inny kolorek należy przed tym nacisnąć 'X'.")
+				await interaction.response.send_message(embed=embed,view=MyView(),ephemeral = True)
 			else:
 				await interaction.response.send_message(f"Nye masz uprawnień do korzystania z tej komendy {interaction.user.mention}.",ephemeral = True)
 
@@ -1189,6 +1126,12 @@ class CustomCommands:
 				astolfo = discord.utils.get(interaction.guild.roles, id=1105659042233335860)
 				furas = discord.utils.get(interaction.guild.roles, id=1105659052362579978)
 				emilia = discord.utils.get(interaction.guild.roles, id=1105659056913391658)
+				triggered = discord.utils.get(interaction.guild.roles, id=1106405165814272086)
+				lewd = discord.utils.get(interaction.guild.roles, id=1106405615582068736)
+				pog = discord.utils.get(interaction.guild.roles, id=1106406236909486090)
+				cry = discord.utils.get(interaction.guild.roles, id=1106409117301624892)
+				wow = discord.utils.get(interaction.guild.roles, id=1106409706366443602)
+				smug = discord.utils.get(interaction.guild.roles, id=1106409904660549723)
 				class MyView(View):
 					@discord.ui.button(emoji="<:whatsup:981260513197588550>", style=discord.ButtonStyle.primary)#Astolfo
 					async def primary1_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
@@ -1211,10 +1154,51 @@ class CustomCommands:
 						embed.set_footer(text=f"Pomyślnie ustawiono {interaction.user.name}")
 						await interaction.response.edit_message(embed=embed)
 					
+					@discord.ui.button(emoji="<:triggered:921394505192734751>", style=discord.ButtonStyle.primary)#triggered
+					async def primary4_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
+						button.disabled = True
+						await interaction.user.add_roles(triggered)
+						embed.set_footer(text=f"Pomyślnie ustawiono {interaction.user.name}")
+						await interaction.response.edit_message(embed=embed)
+					
+					@discord.ui.button(emoji="<:lewd:921394036588310528>", style=discord.ButtonStyle.primary)#lewd
+					async def primary5_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
+						button.disabled = True
+						await interaction.user.add_roles(lewd)
+						embed.set_footer(text=f"Pomyślnie ustawiono {interaction.user.name}")
+						await interaction.response.edit_message(embed=embed)
+					
+					@discord.ui.button(emoji="<:pogchamp:921392177098137600>", style=discord.ButtonStyle.primary)#pog
+					async def primary6_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
+						button.disabled = True
+						await interaction.user.add_roles(pog)
+						embed.set_footer(text=f"Pomyślnie ustawiono {interaction.user.name}")
+						await interaction.response.edit_message(embed=embed)
+					
+					@discord.ui.button(emoji="<:cry:921393487025422357>", style=discord.ButtonStyle.primary)#cry
+					async def primary7_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
+						button.disabled = True
+						await interaction.user.add_roles(cry)
+						embed.set_footer(text=f"Pomyślnie ustawiono {interaction.user.name}")
+						await interaction.response.edit_message(embed=embed)
+					
+					@discord.ui.button(emoji="<:wow:1063241073121562634>", style=discord.ButtonStyle.primary)#wow
+					async def primary8_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
+						button.disabled = True
+						await interaction.user.add_roles(wow)
+						embed.set_footer(text=f"Pomyślnie ustawiono {interaction.user.name}")
+						await interaction.response.edit_message(embed=embed)
+
+					@discord.ui.button(emoji="<:smug:981260512480342048>", style=discord.ButtonStyle.primary)#smug
+					async def primary9_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
+						button.disabled = True
+						await interaction.user.add_roles(smug)
+						embed.set_footer(text=f"Pomyślnie ustawiono {interaction.user.name}")
+						await interaction.response.edit_message(embed=embed)
+					
 					@discord.ui.button(label="X", style=discord.ButtonStyle.danger)#X
 					async def danger_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
 						button.disabled = True
-
 						if astolfo in interaction.user.roles:
 							await interaction.user.remove_roles(astolfo)
 							embed.set_footer(text=f"Pomyślnie usunięto {interaction.user.name}")
@@ -1227,16 +1211,33 @@ class CustomCommands:
 							await interaction.user.remove_roles(emilia)
 							embed.set_footer(text=f"Pomyślnie usunięto {interaction.user.name}")
 							await interaction.response.edit_message(embed=embed)
+						elif triggered in interaction.user.roles:
+							await interaction.user.remove_roles(triggered)
+							embed.set_footer(text=f"Pomyślnie usunięto {interaction.user.name}")
+							await interaction.response.edit_message(embed=embed)
+						elif lewd in interaction.user.roles:
+							await interaction.user.remove_roles(lewd)
+							embed.set_footer(text=f"Pomyślnie usunięto {interaction.user.name}")
+							await interaction.response.edit_message(embed=embed)
+						elif pog in interaction.user.roles:
+							await interaction.user.remove_roles(pog)
+							embed.set_footer(text=f"Pomyślnie usunięto {interaction.user.name}")
+							await interaction.response.edit_message(embed=embed)
+						elif cry in interaction.user.roles:
+							await interaction.user.remove_roles(cry)
+							embed.set_footer(text=f"Pomyślnie usunięto {interaction.user.name}")
+							await interaction.response.edit_message(embed=embed)
+						elif wow in interaction.user.roles:
+							await interaction.user.remove_roles(wow)
+							embed.set_footer(text=f"Pomyślnie usunięto {interaction.user.name}")
+							await interaction.response.edit_message(embed=embed)
+						elif smug in interaction.user.roles:
+							await interaction.user.remove_roles(smug)
+							embed.set_footer(text=f"Pomyślnie usunięto {interaction.user.name}")
+							await interaction.response.edit_message(embed=embed)
 						else:
 							embed.set_footer(text=f"Nie ma co już usunąć {interaction.user.name}")
 							await interaction.response.edit_message(embed=embed)
-
-
-
-
-
-
-
 
 				embed = discord.Embed(title="Booster Icon", description="Dziękuje wam, że postanowiliście wesprzeć nasz wspólny serwer jest mi niezmiernie miło.", color=0xfceade)
 				embed.set_image(url="https://i.postimg.cc/nV1LmcNK/karen-love.gif")
