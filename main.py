@@ -17,7 +17,7 @@ from pathlib import Path
 from discord.ui import Button, View
 
 from Commands import Commands, Kick, Vc, Role
-from Commands.EcoRpg import EcoRpg
+from Commands.Arkwardiz import Arkwardiz
 
 with open("./config.json") as f:
 	config = json.load(f)
@@ -45,14 +45,9 @@ class aclient(discord.Client):
 
 	async def on_server_boost(self,member):
 		channel = member.guild.get_channel(920080200308506676)#id kanału
-		responses = ["https://i.postimg.cc/FHXMfhmc/anime-girl.gif",#zielone włosy
-					"https://i.postimg.cc/WbZRbdRT/anime-heart.gif",#Hatsune 
-					"https://i.postimg.cc/jS6GPBd1/i-love-you-kiss.gif",#I love you
-					"https://i.postimg.cc/RCy5BcDg/neko-anime.gif",#cynamon heart
-					"https://i.postimg.cc/nV1LmcNK/karen-love.gif",#karen love
-					"https://i.postimg.cc/L5rr3p1c/snap.gif"]#azunya
+		responses = ["https://i.postimg.cc/FHXMfhmc/anime-girl.gif","https://i.postimg.cc/WbZRbdRT/anime-heart.gif","https://i.postimg.cc/jS6GPBd1/i-love-you-kiss.gif","https://i.postimg.cc/RCy5BcDg/neko-anime.gif","https://i.postimg.cc/nV1LmcNK/karen-love.gif","https://i.postimg.cc/zBL75gzf/a1.gif","https://i.postimg.cc/N0jbJnZm/a2.gif","https://i.postimg.cc/0yfcCvX9/a3.gif","https://i.postimg.cc/bwzRrMyW/a4.gif","https://i.postimg.cc/qvjx3LgR/a5.gif","https://i.postimg.cc/26BQgNGb/a6.gif","https://i.postimg.cc/8k640MXK/a7.gif","https://i.postimg.cc/yYhPVBH0/a8.gif","https://i.postimg.cc/021nRjL8/a9.gif","https://i.postimg.cc/9f0tt7qB/a10.gif","https://i.postimg.cc/L5rr3p1c/snap.gif"]
 
-		embed = discord.Embed(title="O Dziękuje!", description=f"Jesteś bardzo kochano osobo że decydujesz się ulepszyć naszą społeczność.{member.mention}", color=0xfceade)
+		embed = discord.Embed(title="O Dziękuje!", description=f"Jesteś bardzo kochaną osobą, że decydujesz się ulepszyć naszą społeczność.{member.mention}", color=0xfceade)
 		embed.set_thumbnail(url=config["avatar"])
 		embed.set_image(url=f"{random.choice(responses)}")
 		await channel.send(embed=embed)
@@ -233,14 +228,113 @@ async def self(interaction: discord.Integration):
 			button.disabled = True
 			await interaction.response.edit_message(content=None,embed=None,view=MySelectView())
 
+	class MyButtonOne(View):
+		@discord.ui.button(label="Back", style=discord.ButtonStyle.gray)
+		async def gray_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
+			button.disabled = True
+			await interaction.response.edit_message(content=None,embed=None,view=MySelectViewOne())
+
+	class MySelectViewMenu(View):
+		@discord.ui.select(
+			placeholder="Wybierz przedział wersji.",
+				options=[
+
+					discord.SelectOption(
+						label="0.8.7 do ...",
+						emoji="💮",
+						value="2",
+					),
+
+					discord.SelectOption(
+						label="0.6 do 0.8.6",
+						value="1",
+					),
+
+				],)
+
+
+		async def select_callback(self, interaction:discord.Integration, select: discord.ui.Select):
+			select.disabled = True
+
+			if select.values[0] == "2":
+				await interaction.response.edit_message(view=MySelectViewOne())
+
+			if select.values[0] == "1":
+				await interaction.response.edit_message(view=MySelectView())
+
+	class MySelectViewOne(View):
+		@discord.ui.select(
+			placeholder="Wybierz wersje.",
+				options=[
+
+					discord.SelectOption(
+						label="Back",
+						value="3",
+					),
+
+					discord.SelectOption(
+						label="0.9",
+						emoji="💮",
+						value="2",
+					),
+
+					discord.SelectOption(
+						label="0.8.7",
+						value="1",
+					),
+
+				],)
+
+
+		async def select_callback(self, interaction:discord.Integration, select: discord.ui.Select):
+			select.disabled = True
+
+			if select.values[0] == "3":
+				await interaction.response.edit_message(view=MySelectViewMenu())
+
+			if select.values[0] == "2":
+				embed = discord.Embed(title="Wersja: 0.9", description=f"", color=0xfceade)
+				embed.set_thumbnail(url=config["avatar"])
+				embed.add_field(name="-------------Zaktualizowano--------------", value=f"", inline=False)
+				embed.add_field(name="", value=f"/help", inline=True)
+				embed.add_field(name="", value=f"/info", inline=True)
+				embed.add_field(name="", value=f"/janken", inline=True)
+				embed.add_field(name="----------------Ulepszono----------------", value=f"", inline=False)
+				embed.add_field(name="", value=f"/logs", inline=True)
+				embed.add_field(name="", value=f"Powiadomienia o wzmocnieniu", inline=True)
+				embed.add_field(name="----------------Poprawiono----------------", value=f"", inline=False)
+				embed.add_field(name="", value=f"/server_set", inline=True)
+				embed.add_field(name="", value=f"/Booster Icon", inline=True)
+				embed.add_field(name="", value=f"Powiadomienia o wzmocnieniu", inline=True)
+				embed.add_field(name="-----------------Dodano-------------------", value=f"", inline=False)
+				embed.add_field(name="", value=f"/report", inline=True)
+				embed.add_field(name="", value=f"/pick_up", inline=True)
+				embed.add_field(name="", value=f"/dance", inline=True)
+				embed.add_field(name="", value=f"/gym", inline=True)
+				embed.add_field(name="", value=f"helpark", inline=True)
+				embed.add_field(name="", value=f"/profile", inline=True)
+				embed.add_field(name="", value=f"/give\n/give_extra", inline=True)
+				embed.add_field(name="", value=f"/deposit\n/withdraw", inline=True)
+				embed.add_field(name="", value=f"/profile_edit_footer\n/profile_edit_text\n/profile_edit_banner\n/profile_edit_icon\n/profile_edit_color", inline=True)
+				embed.add_field(name="", value=f"/bank_transfer\n/instantbank_transfer", inline=True)
+				embed.set_footer(text="/? tresc = '0.9'")
+				embed.set_image(url="https://i.postimg.cc/MTtPKSRs/anime.gif")
+				await interaction.response.edit_message(embed=embed,view=MyButtonOne())
+
+			if select.values[0] == "1":
+				embed = discord.Embed(title="Wersja: 0.8.7", description=f"", color=0xfceade)
+				embed.set_thumbnail(url=config["avatar"])
+				embed.add_field(name="Zaktualizowano:", value=f"/kolorkowo", inline=False)
+				embed.add_field(name="Zaktualizowano:", value=f"/booster_icon", inline=False)
+				await interaction.response.edit_message(embed=embed,view=MyButtonOne())
+
 	class MySelectView(View):
 		@discord.ui.select(
 			placeholder="Wybierz wersje.",
 				options=[
 
 					discord.SelectOption(
-						label="0.8.7",
-						emoji="💮",
+						label="Back",
 						value="12",
 					),
 
@@ -304,12 +398,7 @@ async def self(interaction: discord.Integration):
 			select.disabled = True
 
 			if select.values[0] == "12":
-
-				embed = discord.Embed(title="Wersja: 0.8.7", description=f"", color=0xfceade)
-				embed.set_thumbnail(url=config["avatar"])
-				embed.add_field(name="Zaktualizowano:", value=f"/kolorkowo", inline=False)
-				embed.add_field(name="Zaktualizowano:", value=f"/booster_icon", inline=False)
-				await interaction.response.edit_message(embed=embed,view=MyButton())
+				await interaction.response.edit_message(view=MySelectViewMenu())
 
 			if select.values[0] == "11":
 
@@ -421,15 +510,14 @@ async def self(interaction: discord.Integration):
 				embed.add_field(name="Naprawiono:", value=f"Małe błędy i komunikaty.", inline=False)
 				await interaction.response.edit_message(embed=embed,view=MyButton())
 
-	view = MySelectView()
-	await interaction.response.send_message(view=view, ephemeral = True)
+	await interaction.response.send_message(view=MySelectViewMenu(), ephemeral = True)
 
 
 
 
 Vc.CustomCommands.get_commands(tree,client)
 Kick.CustomCommands.get_commands(tree,client)
-EcoRpg.CustomCommands.get_commands(tree,client)
+Arkwardiz.CustomCommands.get_commands(tree,client)
 Commands.CustomCommands.get_commands(tree,client)
 
 if sysconfig.get_platform() == "win-amd64" or sysconfig.get_platform() == "linux-x86_64":

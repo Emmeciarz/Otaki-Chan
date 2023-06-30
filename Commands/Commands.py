@@ -4,6 +4,7 @@ from discord import app_commands
 from discord.ext import commands
 from discord.ui import Button, View
 from pathlib import Path
+from datetime import datetime
 import random
 import json
 import time
@@ -64,6 +65,13 @@ class CustomCommands:
 								value="4",
 								emoji="📓",
 							),
+
+							discord.SelectOption(
+								label="Helpark",
+								description="Pokazuję komendy związane z Projektem Arkwardiz.",
+								value="6",
+								emoji="📜",
+							),
 						],)
 
 				async def select_callback(self, interaction:discord.Integration, select: discord.ui.Select):
@@ -77,6 +85,7 @@ class CustomCommands:
 						embed.add_field(name="📙 helpg+", value="Pokazuję komendy dla Uczestników+ oraz Server Boosterów.", inline=False)
 						embed.add_field(name="📕 helpm", value="Pokazuję komendy dla administracji serwera.", inline=False)
 						embed.add_field(name="📓 helpvc", value="Pokazuję komendy związane z kanałem głosowym.", inline=False)
+						embed.add_field(name="📜 helpark", value="Pokazuję komendy związane z Projektem Arkwardiz.", inline=False)
 						await interaction.response.edit_message(embed=embed,view=MyButton())
 
 					if select.values[0] == "2":
@@ -92,8 +101,12 @@ class CustomCommands:
 						embed.add_field(name=":white_check_mark: /hug", value=f"Pozwala ci przytulić wybrano przez ciebie osobę.", inline=False)
 						embed.add_field(name=":white_check_mark: /pat", value=f"Pozwala ci pogłaskać wybrano przez ciebie osobę.", inline=False)
 						embed.add_field(name=":white_check_mark: /slap", value=f"Pozwala ci uderzyć wybrano przez ciebie osobę.", inline=False)
+						embed.add_field(name=":white_check_mark: /pick_up", value=f"Pozwala ci podnieść wybrano przez ciebie osobę.", inline=False)
+						embed.add_field(name=":white_check_mark: /dance", value=f"Pozwala ci zatańczyć.", inline=False)
+						embed.add_field(name=":white_check_mark: /gym", value=f"Pozwala ci ćwiczyć.", inline=False)
 						embed.add_field(name=":white_check_mark: /handshake", value=f"Pozwala ci uścisnąć dłoń wybranej przez ciebie osobie.", inline=False)
 						embed.add_field(name=":white_check_mark: /pong", value=f"Pozwala ci na zaproszenie kogoś do wspólnego rzucania piłeczką.", inline=False)
+						embed.add_field(name=":white_check_mark: /report", value=f"Pozwala ci wysłać dowolne zgłoszenie do oddziały administracji serwera Otakumania.", inline=False)
 						embed.add_field(name=":white_check_mark: /version", value=f"Pokazuję wersję Otaki-Chan", inline=False)
 						embed.add_field(name=":white_check_mark: /logs", value=f"Pokazuję logi Otaki-Chan", inline=False)
 						embed.add_field(name=":white_check_mark: /vocabulary", value=f"Pokazuję ci słowniczek Otakumani.", inline=False)
@@ -112,6 +125,8 @@ class CustomCommands:
 							embed.add_field(name=":white_check_mark: /otaki", value=f"Piszesz przeze mnie i wysyłam to na wybrany przez ciebie kanał.", inline=False)
 							embed.add_field(name=":white_check_mark: /ny", value=f"Pozwala wybrać zbiory pytań do wysłania dla uczestników.", inline=False)
 							embed.add_field(name=":white_check_mark: /volume", value=f"Pozwala ci zmienić głośność Otaki-chan", inline=False)
+							embed.add_field(name=":white_check_mark: /give", value="Dzięki tej komendzie administracja serwera przyznaje punkty uczestnikom serwera.", inline=False)
+							embed.add_field(name=":white_check_mark: /give_extra", value=f"Dzięki tej komendzie właściciel serwera przyznaje dodatkowe punkty uczestnikom serwera.", inline=False)
 							embed.add_field(name=":white_check_mark: /ban", value=f"Banujesz osobę na serwerze.", inline=False)
 							embed.add_field(name=":white_check_mark: /kick", value=f"Wyrzucasz osobę z serwera.", inline=False)
 							embed.add_field(name=":white_check_mark: /server_set", value=f"Pozwala na zmianę wyglądu serwera.", inline=False)
@@ -162,6 +177,23 @@ class CustomCommands:
 							await interaction.response.edit_message(embed=embed,view=MyButton())
 						else:
 							await interaction.response.edit_message(content=f"Nye masz uprawnień do wyświetlania tego zbioru komend {interaction.user.mention}.",view=MyButton())
+
+					if select.values[0] == "6":
+
+						embed = discord.Embed(title="Proszę, oto wszystkie komendy związane z Projektem Arkwardiz.", description='Wymienię ci wszystkie komendy jakie obsługuję, i co one robią.', color=0xfceade)
+						embed.set_thumbnail(url=config["avatar"])
+						embed.add_field(name=":white_check_mark: /profile", value="Pozwla ci wywołać twój profil jak i innych uczestników.", inline=False)
+						embed.add_field(name=":white_check_mark: /deposit", value="Pozwala ci wpłacić Otimi-coiny do banku.", inline=False)
+						embed.add_field(name=":white_check_mark: /withdraw", value="Pozwala ci wypłacić pieniądze z banku.", inline=False)
+						embed.add_field(name=":white_check_mark: /bank_transfer", value="Pozwala na przelewanie pieniędzy z banku do banków innych uczestników serwera.", inline=False)
+						embed.add_field(name=":white_check_mark: /instantbank_transfer", value="Działa tak samo jak zwykły bank_transfer ale nie musisz odczekiwać dnia na kolejny przelew, dodatkowa opłata 5 Otimi-coiny.", inline=False)
+						embed.add_field(name=":white_check_mark: /profile_edit_footer", value="Po wykupieniu tego w sklepie, będziesz w stanie edytować stopkę swojego profilu.", inline=False)
+						embed.add_field(name=":white_check_mark: /profile_edit_text", value="Po wykupieniu tego w sklepie, będziesz w stanie edytować sekcję pisemną swojego profilu.", inline=False)
+						embed.add_field(name=":white_check_mark: /profile_edit_banner", value="Po wykupieniu tego w sklepie, będziesz w stanie edytować banner profilu.", inline=False)
+						embed.add_field(name=":white_check_mark: /profile_edit_icon", value="Po wykupieniu tego w sklepie, będziesz w stanie dodać ikonkę do swojego profilu.", inline=False)
+						embed.add_field(name=":white_check_mark: /profile_edit_color", value="Po wykupieniu tego w sklepie, będziesz w stanie ustalić kolorek swojego profilu.", inline=False)
+						embed.add_field(name="Komendy które po lewej stronie posiadają znaczek:", value=f":white_check_mark: działają poprawnie.\n<:AAEC_karenThink:981262325061419009> działają ale nie do końca dobrze.\n<:9881_NotHuTao:926276740437921843> Nie działają lub działają nie właściwie.", inline=False)
+						await interaction.response.edit_message(embed=embed,view=MyButton())
 
 			view = MySelectView()
 			await interaction.response.send_message(view=view, ephemeral = True)
@@ -235,6 +267,13 @@ class CustomCommands:
 								value="8",
 								emoji="<a:hype5:921394314674855947>",
 							),
+
+							discord.SelectOption(
+								label="Działanie systemu Arkwardiz.",
+								description="Wytłumaczenie jak powstał i jak działa system Arkwardiz.",
+								value="9",
+								emoji="<:C21_aww:921400267398864896>",
+							),
 						],)
 
 				async def select_callback(self, interaction:discord.Integration, select: discord.ui.Select):
@@ -252,23 +291,24 @@ class CustomCommands:
 					if select.values[0] == "2":
 
 						embed = discord.Embed(title="Co zawita do nas w przyszłości ?", description="Wymienione w kolejności priorytetowej.", color=0xfceade)
-						embed.add_field(name="1. EcoRpg", value=f"Jest to rozbudowany projekt na Otaki-chan polegającym na stworzeniu gry w stylu rpg z domieszkami economy.", inline=False)
+						embed.add_field(name="1. Projekt Arkwardiz", value=f"Dalsze ulepszanie i dopracowywanie", inline=False)
+						embed.add_field(name="2. helpvc", value=f"Dodanie nowych komend do zbioru jak i ulepszenie poprzednich.", inline=False)
 						embed.set_thumbnail(url = config["avatar"])
 						await interaction.response.edit_message(embed=embed,view=MyButton())
 					
 					if select.values[0] == "3":
 
-						embed = discord.Embed(title="Aspiracje serwera Otakumani.", description="Przedstawię ci teraz nasze cele do których dążymy, jeśli będziesz chciał nas wspomóc z realizacją celów/celu napisz do któregoś z nas: <@394162972957605890>,<@277119816043724801>,<@416324164543184907>", color=0xfceade)
+						embed = discord.Embed(title="Aspiracje serwera Otakumani.", description="Przedstawię ci teraz nasze cele do których dążymy, jeśli będziesz chciał nas wspomóc z realizacją celów/celu napisz do któregoś z nas: <@394162972957605890>,<@277119816043724801>,<@416324164543184907>,<@651869859491348500>", color=0xfceade)
 						embed.add_field(name="Poszukujemy nowszych:", value=f"Icon Otaki/Mani-Chan, Icon serwera, Banerów serwra.", inline=False)
 						embed.add_field(name="Potrzebujemy:", value=f"Loga, Rysownika/Rysowniczki, Strony serwera.", inline=False)
-						embed.add_field(name="Usilnie realizujemy:", value=f"Serwerowe RP, Osiągniecie 500 osób na serwerze, Projekt EcpRpg.", inline=False)
+						embed.add_field(name="Usilnie realizujemy:", value=f"Osiągniecie 500 osób na serwerze, Projekt Arkwardiz.", inline=False)
 						embed.set_thumbnail(url = config["avatar"])
 						embed.set_image(url="https://i.postimg.cc/x8vP059p/wp5815954.webp")
 						await interaction.response.edit_message(embed=embed,view=MyButton())
 
 					if select.values[0] == "4":
 
-						embed = discord.Embed(title="Otaki-Chan oraz Mani-chan.", description="Są to maskotki serwera stworzone przez <@394162972957605890> które pełnią role administracyjne, promujące serwer, oraz zabawowe ich nazwy wzięły się z rozbicia nazwy serwera na dwa człony Otaku oraz Mania po czym przerobienia ich na dziewczęce imiona i tak powstały nazwy <@796459757506134016> z Otaku i <@970417320717615134> z Mania. Jeśli chodzi o ich zarys osobowościowy pojawi się ona w przyszłości, a i wypadało by zaznaczyć czemu Mani-Chan pojawia się sporadycznie online wynika to z faktu bycia przez nią testerko", color=0xfceade)
+						embed = discord.Embed(title="Otaki-Chan oraz Mani-chan.", description="Są to maskotki serwera stworzone przez <@394162972957605890> które pełnią role administracyjne, promujące serwer, oraz zabawowe ich nazwy wzięły się z rozbicia nazwy serwera na dwa człony\n\n Otaku oraz Mania po czym przerobienia ich na dziewczęce imiona i tak powstały nazwy <@796459757506134016> z Otaku i <@970417320717615134> z Mania.\n\n Jeśli chodzi o ich zarys osobowościowy pojawi się ona w przyszłości, a i wypadało by zaznaczyć czemu Mani-Chan pojawia się sporadycznie online wynika to z faktu bycia przez nią testerko.", color=0xfceade)
 						embed.set_thumbnail(url = config["avatar"])
 						await interaction.response.edit_message(embed=embed,view=MyButton())
 
@@ -290,21 +330,43 @@ class CustomCommands:
 
 					if select.values[0] == "7":
 
-						embed = discord.Embed(title="Przepisy znaczeń do ról:", description="", color=0xfceade)
-						embed.add_field(name="Właściciela:", value=f"Emoji-<:Megumin:1095438874945269841>\nZapis słowny-|W|", inline=False)
-						embed.add_field(name="Moderacji:", value=f"Emoji-<:conflict:921394533449744394>\nZapis słowny-|M|", inline=False)
-						embed.add_field(name="Server Boosterów:", value=f"Emoji-<:love2:1063248751889743968>\nZapis słowny-|SB|", inline=False)
-						embed.add_field(name="Uczestników+", value=f"Emoji-💎,🌈,🍊,🍁,🎃,🧊,🍾\nZapis słowny-|U+|", inline=False)
-						embed.add_field(name="Uczestników", value=f"Emoji-Brak\nZapis słowny-|U|", inline=False)
+						embed = discord.Embed(title="Przepisy znaczeń:", description="", color=0xfceade)
+						embed.add_field(name="Właściciela:", value=f"Emoji-<:Megumin:1095438874945269841>\nZapis słowny-|W|", inline=True)
+						embed.add_field(name="Moderacji:", value=f"Emoji-<:conflict:921394533449744394>\nZapis słowny-|M|", inline=True)
+						embed.add_field(name="", value=f"", inline=False)
+						embed.add_field(name="Realizator idei:", value=f"Emoji-💮\nZapis słowny-|RI|", inline=True)
+						embed.add_field(name="Verified:", value=f"Emoji-Brak\nZapis słowny-|V|", inline=True)
+						embed.add_field(name="", value=f"", inline=False)
+						embed.add_field(name="Server Boosterów:", value=f"Emoji-<:love2:1063248751889743968>\nZapis słowny-|SB|", inline=True)
+						embed.add_field(name="Reporter:", value=f"Emoji-<:A11_report:921400267440791662>\nZapis słowny-Brak", inline=True)
+						embed.add_field(name="", value=f"", inline=False)
+						embed.add_field(name="Uczestników+:", value=f"Emoji-💎,🌈,🍊,🍁,🎃,🧊,🍾\nZapis słowny-|U+|", inline=True)
+						embed.add_field(name="Plus:", value=f"Emoji-<:D1_plus1:981257475078639676>\nZapis słowny-|+|", inline=True)
+						embed.add_field(name="", value=f"", inline=False)
+						embed.add_field(name="Profilowicz:", value=f"Emoji-<:0A17_wow:1063241073121562634>\nZapis słowny-Brak", inline=True)
+						embed.add_field(name="Aplikant:", value=f"Emoji-📝\nZapis słowny-Brak", inline=True)
+						embed.add_field(name="Uczestników:", value=f"Emoji-Brak\nZapis słowny-|U|", inline=True)
 						embed.set_thumbnail(url = config["avatar"])
 						await interaction.response.edit_message(embed=embed,view=MyButton())
 
 					if select.values[0] == "8":
 
-						embed = discord.Embed(title="Slow mod:", description="Został włączany żeby nie tworzyć niepotrzebnego bałaganu na głównym kanale. Dzięki czemu wypowiedzi będą bardziej rozbudowane a same wiadomości nie będą rozrzucone po całym kanale głównym. Dzięki czemu łatwiej będzie nie tylko dla osób dyskutujących, ale również dla czytelników. Nie licząc moderacji, której slow mod ułatwia moderowanie, zwłaszcza podczas rajdów. Chroni też nas przed osobami, które wchodzą tylko po to, aby tworzyć niepotrzebny chaos.", color=0xfceade)
+						embed = discord.Embed(title="Slow mod:", description="Został włączany żeby nie tworzyć **niepotrzebnego bałaganu** na głównym kanale. Dzięki czemu wypowiedzi będą bardziej rozbudowane a same wiadomości nie będą rozrzucone po całym kanale głównym.\n\nDzięki czemu łatwiej będzie nie tylko dla __osób dyskutujących__, ale również dla __czytelników__.\n\n Nie licząc __moderacji__,której _slow mod_ ułatwia moderowanie, zwłaszcza podczas **rajdów**.\n\nChroni też nas przed osobami, które wchodzą tylko po to, aby tworzyć **niepotrzebny chaos**.", color=0xfceade)
 						embed.set_thumbnail(url = config["avatar"])
 						await interaction.response.edit_message(embed=embed,view=MyButton())
 
+					if select.values[0] == "9":
+
+						embed = discord.Embed(title="Arkwardiz:", description="", color=0xfceade)
+						embed.add_field(name="Założenie projektu:", value=f"Celem projektu jest zachęcenie do większej aktywności jak i potencjalne przyciągnięcie nowych osób do serwera za pośrednictwem nowych urozmaiceń i także podejścia społeczności.", inline=False)
+						embed.add_field(name="Dlaczego powstał:", value=f"Jego powstanie bardzo wiążę się z porzuconym przeze mnie projektem EcoRpg który miał opierać się na interakcjach pomiędzy uczestnikami z wbudowaną otoczką fabularną razem z rozwijaniem własnej postaci, lecz po dłuższej pracy z projektem okazało się że zrealizowanie go na platformie discord było by bardzo ciężkie i niewygodne w dalszym ulepszeniu.\n\n Praca nad projektem została całkowicie zaniechana, lecz chęć stworzenia czegoś ciekawego już nie.\n\n Po kilku miesiącach i spostrzeżeniach ze strony moderacji zdałem sobie sprawę że mam pomysł na ekspansje i uczynienie z tego coś co może się spodobać uczestnikom serwera.\n\n A tym pomysłem jest właśnie projekt Arkwardiz który narodził się z porzuconego pomysłu EcoRpg jak urozmaiceniu komfortu moderacji.", inline=False)
+						embed.add_field(name="System:", value=f"Uczestnicy którzy będą aktywni oraz zajmować się nowymi, będą wynagradzani specjalnymi punktami które będą mogli wymieniać na przeróżne nagrody, dodatkowe aktywności oraz  rywalizować ze sobą o bycie najlepszym.", inline=False)
+						embed.add_field(name="Punktacja:", value=f"Wymienię ci wszystkie możliwości na zdobywanie punktów jak i ich ilość którą ci przyznamy za zrealizowanie któregokolwiek z nich:\n- Zbumpowanie serwera = 1\n- *Przywitanie nowej osoby = 2\n- *Spora konwersacja z nową osobą = 2\n- *Zachęcenie nowych do vc = 2\n- *Zapraszanie nowych osób = 1\n- Wyłapywanie małych błędów na Otaki = 3\n- Wyłapywanie poważnych błędów na Otaki = 9\n- *Uczestnicy których przywitałeś rozmawiają na tekstowym = 10\n* *Uczestnicy których przywitałeś rozmawiają na głosowym = 20\n**Co miesięczne:**\n- Uczestnicy którzy dużo pisali na kanałach tekstowych = 5\n* Uczestnicy którzy dużo rozmawiali na kanałach głosowych = 7", inline=False)
+						embed.add_field(name="Przyznawanie:", value=f"Będą one przyznawane przez administacje serwera Otakumania po tym jak uczestnik wykona jedną z wymienionych aktywności.", inline=True)
+						embed.add_field(name="Bonus rang:", value=f"W przypadku posiadania przez ciebie rang:\n- Uczestnicy+ dostają 2 dodatkowe punkty do każdej aktywności\n* Server Booster mnoży zdobyte punkty razy 2", inline=True)
+						embed.add_field(name="FAQ", value=f"* Jak są naliczane punkty jeśli posiadam obie bonusowe rangi ?\n - W przypadku posiadania obydwu najpierw jest uwzględniany Uczestnicy+ po czym od wyniku dodawania Server Booster.\n* Dlaczego 'Przywitanie nowej osoby' posiada gwiazdkę ?\n - Posiada ją ze względu na to że nie wystarczy samo przywitanie się, lecz musi wyniknąć przynajmniej mały dialog.\n* Dlaczego 'Spora konwersacja z nową osobą' posiada gwiazdkę ?\n - Ponieważ jest to oceniane subiektywnie przez administracje serwera.\n* Dlaczego 'Zachęcenie nowych do vc' posiada gwiazdkę ?\n - Posiada ją ze względu na to że jeśli zachęcanie przeobrazi się w zmuszanie nie zostaną podliczone żadne punkty a wręcz przeciwnie osoba taka zostanie obciążona minusowymi dwoma punktami.\n* Dlaczego 'Zapraszanie nowych osób' posiada gwiazdkę ?\n - Została ona tam dodana ze względu na to że nowo utworzone konta/multi konta nie będą podlegać punktacji.\n* Dlaczego 'Uczestnicy których przywitałeś...' posiada gwiazdkę ?\n - Ponieważ jest to oceniane subiektywnie przez administracje.", inline=False)
+						embed.set_thumbnail(url = config["avatar"])
+						await interaction.response.edit_message(embed=embed,view=MyButton())
 			view = MySelectView()
 			await interaction.response.send_message(view=view, ephemeral = True)
 
@@ -361,18 +423,6 @@ class CustomCommands:
 				await interaction.channel.purge(limit=amount)
 			else:
 				await interaction.response.send_message(f"Nye masz uprawnień do korzystania z tej komendy{interaction.user.mention}", ephemeral = True)
-
-		@tree.command(name = "pytania", description= "Tą komendą możesz zadać mi pytanie.", guild = discord.Object(id = 698522294414344232))
-		async def self(interaction: discord.Integration, tresc: str):
-			channel = discord.utils.get(interaction.guild.channels, id = 925191790284406805)
-			if  interaction.channel == channel:
-				responses = ["Czy mógłbyś zadać mi pytanie ponownie, bo nie dosłyszałam.","BEZ WĄTPIENIA TAK.","BEZ WĄTPIENIA NIE.","Zdecydowanie TAK.","Zdecydowanie NIE.","Najprawdopodobniej nie.","Najprawdopodobniej tak.","Ahh, Nie.","Ahh, Tak.","<:5163gchemoji13yes:926276739439669318>","<:emoji_6:921392219343171594>","taaaaaaak.","nieeeeeee.","Jest mi naprawdę przykro, że zadajesz mi takie pytanie <:emoji_16:921393487025422357>","Nie jestem pewna.","Chciałabym powiedzieć TAK, ale wszystko wskazuje na NIE.","Chciałabym powiedzieć NIE, ale wszystko wskazuje na TAK.","Muszę dłużej nad tym pomyśleć.","Nie licz na to.","Nie moge teraz powiedzieć.","Znaki na niebie mówią Nie.","Znaki na niebie mówią Tak.","Jakby się nad tym zastanowić Tak","Jakby się nad tym zastanowić Nie","Spytaj się kogoś innego.","Czemu zadajesz te pytanie akurat mi.","Możliwe.","Wydaje mi się że znam odpowiedź na twoje pytanie ale jakoś nie jestem przekonana czy chce ci mówić.","Daj mi spokój, jestem zmęczona.","Chyba tak.","Zapytaj moją młodszą siostrę.","Oczywiście że tak.","Oczywiście że nie.","Patrząc na ciebie zdecydowanie NIE.","Patrząc na ciebie zdecydowanie TAK.","Reasumując wszystkie aspekty kwintesencji tematu, dochodzę do fundamentalnej konkluzji, TAK.","Reasumując wszystkie aspekty kwintesencji tematu, dochodzę do fundamentalnej konkluzji, NIE.","Chyba nie."]
-				embed = discord.Embed(title="Pytanie:", description=f"{tresc}", color=0xfceade)
-				embed.set_thumbnail(url=config["avatar"])
-				embed.add_field(name="Odpowiedź:", value=f"{random.choice(responses)}", inline=False)
-				await interaction.response.send_message(embed=embed, ephemeral = False)
-			else:
-				await interaction.response.send_message(f"Hej {interaction.user.mention}, Nye jesteś na kanale {channel.mention}.",ephemeral = True)
 
 		@tree.command(name = "otaki", description= "Pozwala na porozumiewanie się prze zemnie.", guild = discord.Object(id = 698522294414344232))
 		async def self(interaction: discord.Integration, channels: discord.TextChannel, tresc: str):
@@ -499,6 +549,27 @@ class CustomCommands:
 			embed.set_image(url=f"{random.choice(kissa)}")
 			await interaction.response.send_message(embed=embed, ephemeral = False)
 
+		@tree.command(name = "pick_up", description= "Pozwala ci podnieść wybrano przez ciebie osobę.", guild = discord.Object(id = 698522294414344232))
+		async def self(interaction: discord.Integration, od: discord.Member, dla: discord.Member):
+			kissa = ["https://i.postimg.cc/brHYBJWy/a1.gif","https://i.postimg.cc/hvrg0YQh/a2.gif","https://i.postimg.cc/wvNjDFks/a3.gif","https://i.postimg.cc/T1XY0mkN/a4.gif","https://i.postimg.cc/fbJLRMtC/a5.gif","https://i.postimg.cc/kghJZL1b/a6.gif","https://i.postimg.cc/HLRLJFbg/a7.gif","https://i.postimg.cc/prxRzvTg/a8.gif","https://i.postimg.cc/SNgk2wpv/a9.gif","https://i.postimg.cc/15myzybF/a10.gif","https://i.postimg.cc/tgxjcJnK/a11.gif"]
+			embed = discord.Embed(title=f"Uczestnik {od.name} podnosi {dla.name}", description=f"", color=0xfceade)
+			embed.set_image(url=f"{random.choice(kissa)}")
+			await interaction.response.send_message(embed=embed, ephemeral = False)
+		
+		@tree.command(name = "dance", description= "Pozwala ci zatańczyć.", guild = discord.Object(id = 698522294414344232))
+		async def self(interaction: discord.Integration):
+			kissa = ["https://i.postimg.cc/sDnP69WN/a1.gif","https://i.postimg.cc/3rmbc6rb/a2.gif","https://i.postimg.cc/YCW461zg/a3.gif","https://i.postimg.cc/rsVWgKwT/a4.gif","https://i.postimg.cc/tg6h4KMK/a5.gif","https://i.postimg.cc/5Nfpk2R6/a6.gif","https://i.postimg.cc/W1nBfy8P/a7.gif","https://i.postimg.cc/9fkN6Hqs/a8.gif","https://i.postimg.cc/C1Z95xgF/a9.gif","https://i.postimg.cc/CMssDVxY/a10.gif","https://i.postimg.cc/JzfkvTzP/a11.gif","https://i.postimg.cc/kGTSHq2b/a12.gif","https://i.postimg.cc/wTFFKYCF/a13.gif","https://i.postimg.cc/HkZSM13j/a14.gif","https://i.postimg.cc/4yPvTpSn/a15.gif","https://i.postimg.cc/R0pjvn2s/a16.gif","https://i.postimg.cc/7Yg8ShTh/a17.gif","https://i.postimg.cc/nc8fsBrN/a18.gif","https://i.postimg.cc/hGNpC8kB/a19.gif","https://i.postimg.cc/mkgzCJm2/a20.gif","https://i.postimg.cc/26wLqrFK/a21.gif","https://i.postimg.cc/HWzbn46k/a22.gif","https://i.postimg.cc/651RL6Js/a23.gif","https://i.postimg.cc/7Zf3pGMY/a24.gif","https://i.postimg.cc/C1jHm3CG/a25.gif","https://i.postimg.cc/5NjQ0cHs/a26.gif","https://i.postimg.cc/sD27hQL9/a27.gif","https://i.postimg.cc/nhjmd8pX/a28.gif","https://i.postimg.cc/Kc0gxcYK/a29.gif","https://i.postimg.cc/rmtYcZ1s/a30.gif","https://i.postimg.cc/HLr64vPz/a31.gif","https://i.postimg.cc/9XwjFJmG/a32.gif","https://i.postimg.cc/qv5LRXM3/a33.gif","https://i.postimg.cc/8PkBmn7v/a34.gif","https://i.postimg.cc/9QJkB7Xm/a35.gif","https://i.postimg.cc/0N7wsp6x/a36.gif","https://i.postimg.cc/X7g1VCCf/a37.gif","https://i.postimg.cc/T2VC9DQz/a38.gif","https://i.postimg.cc/1Xs0TvML/a39.gif","https://i.postimg.cc/GtGNPgtV/a40.gif","https://i.postimg.cc/hvZJrsY8/a41.gif","https://i.postimg.cc/LXMjYydn/a42.gif","https://i.postimg.cc/PqvM8pPF/a43.gif","https://i.postimg.cc/yYKr4Pk6/a44.gif","https://i.postimg.cc/7h3sJCQy/a45.gif","https://i.postimg.cc/L82dDSzT/a46.gif","https://i.postimg.cc/5t2hcmKQ/a47.gif","https://i.postimg.cc/DZtHX3v1/a48.gif","https://i.postimg.cc/85BMhhDw/a49.gif","https://i.postimg.cc/g2kSr2Vf/a50.gif","https://i.postimg.cc/2y7G8sVk/a51.gif","https://i.postimg.cc/x1C5nFYQ/a52.gif","https://i.postimg.cc/rpsPZwzS/a53.gif","https://i.postimg.cc/4dtwj7Gh/a54.gif","https://i.postimg.cc/XJ3y7pF5/a55.gif","https://i.postimg.cc/nLwLj2Xq/b1.gif","https://i.postimg.cc/mZ7bBByY/b2.gif","https://i.postimg.cc/0NNQyFy8/b3.gif","https://i.postimg.cc/V6rkjttp/b4.gif","https://i.postimg.cc/Gtv3f1qj/b5.gif","https://i.postimg.cc/CKdhg8c5/b6.gif","https://i.postimg.cc/9M6F1ftM/b7.gif","https://i.postimg.cc/9FjQ7rQg/b8.gif","https://i.postimg.cc/8kvCchNr/b9.gif","https://i.postimg.cc/XYjNsmFw/b10.gif","https://i.postimg.cc/7YMYMwCH/b11.gif","https://i.postimg.cc/6pMWgcLF/b12.gif","https://i.postimg.cc/8C31PCYH/b13.gif","https://i.postimg.cc/XY1WQJnb/b14.gif","https://i.postimg.cc/tJGpWMpn/b15.gif","https://i.postimg.cc/ZnPZcx57/b16.gif","https://i.postimg.cc/BQsJvkmd/b17.gif","https://i.postimg.cc/nckp925M/b18.gif","https://i.postimg.cc/760yHn0H/b19.gif","https://i.postimg.cc/y88Bm94j/b20.gif","https://i.postimg.cc/cJVSGbKk/b21.gif","https://i.postimg.cc/Zq9SgSqy/b22.gif","https://i.postimg.cc/RhmxNJLc/b23.gif","https://i.postimg.cc/sfPRbK3K/b24.gif","https://i.postimg.cc/5ymdv9sD/b25.gif","https://i.postimg.cc/8P1VGW5G/b26.gif","https://i.postimg.cc/V6y3V0T3/b27.gif","https://i.postimg.cc/4NBRxd79/b28.gif","https://i.postimg.cc/MKsg8FN0/b29.gif","https://i.postimg.cc/mgkfzsC6/b30.gif","https://i.postimg.cc/qvFf25GB/b31.gif","https://i.postimg.cc/wMgn6892/b32.gif","https://i.postimg.cc/TP5z0JkV/b33.gif","https://i.postimg.cc/HW9f6xth/b34.gif","https://i.postimg.cc/Fzp8zWR4/b35.gif","https://i.postimg.cc/85hqQPgs/b36.gif","https://i.postimg.cc/6pyg6hxk/b37.gif","https://i.postimg.cc/vH8CksqH/b38.gif","https://i.postimg.cc/MT8FD2fw/b39.gif","https://i.postimg.cc/hGmYTPjM/b40.gif","https://i.postimg.cc/DwHDSb28/b41.gif","https://i.postimg.cc/XJcD1H9C/b42.gif","https://i.postimg.cc/QC8Y2Qqn/b43.gif","https://i.postimg.cc/XNLzwPjM/b44.gif","https://i.postimg.cc/kGTYq21M/b45.gif","https://i.postimg.cc/50CfHVdM/b46.gif","https://i.postimg.cc/zG3JKWTN/c1.gif","https://i.postimg.cc/hPD44Njf/c2.gif","https://i.postimg.cc/RZ8vRFTH/c3.gif","https://i.postimg.cc/zBY5sc6D/c4.gif","https://i.postimg.cc/TY3Gvm7b/c5.gif","https://i.postimg.cc/cCXS84H6/c6.gif","https://i.postimg.cc/gjYpJ6Gf/c7.gif","https://i.postimg.cc/1RHPdMHP/c8.gif","https://i.postimg.cc/HLqspxcg/c9.gif","https://i.postimg.cc/1t0PsK1G/c10.gif","https://i.postimg.cc/wBmgbpWb/c11.gif","https://i.postimg.cc/VNrkQMNg/c12.gif","https://i.postimg.cc/0jf8d0tk/c13.gif","https://i.postimg.cc/mZN2sTTv/c14.gif","https://i.postimg.cc/5089jVLF/c15.gif","https://i.postimg.cc/Xq3jCzk1/c16.gif","https://i.postimg.cc/8PZp7wJw/c17.gif"]
+			embed = discord.Embed(title=f"{interaction.user.name} tańczy", description=f"", color=0xfceade)
+			embed.set_image(url=f"{random.choice(kissa)}")
+			await interaction.response.send_message(embed=embed, ephemeral = False)
+
+		@tree.command(name = "gym", description= "Pozwala ci ćwiczyć", guild = discord.Object(id = 698522294414344232))
+		async def self(interaction: discord.Integration):
+			kissa = ["https://i.postimg.cc/HLjvBXg9/a1.gif","https://i.postimg.cc/sgHwQxhQ/a2.gif","https://i.postimg.cc/fTZH16sL/a3.gif","https://i.postimg.cc/wjjwjL7Y/a4.gif","https://i.postimg.cc/fb35xscH/a5.gif","https://i.postimg.cc/1twHjKYw/a6.gif","https://i.postimg.cc/mr0jjnVT/a7.gif","https://i.postimg.cc/pX2ZszQ5/a8.gif","https://i.postimg.cc/8cbb1zGC/a9.gif","https://i.postimg.cc/bwrRhPBz/a10.gif","https://i.postimg.cc/4NB1qywL/a11.gif","https://i.postimg.cc/kMNsNfSd/a12.gif","https://i.postimg.cc/brL17V0D/a13.gif","https://i.postimg.cc/Gmfx3fWv/a14.gif","https://i.postimg.cc/hjW8TdPj/a15.gif","https://i.postimg.cc/WzsMfcZc/a16.gif","https://i.postimg.cc/LsZBJTSw/a17.gif","https://i.postimg.cc/TY7rQSYB/a18.gif","https://i.postimg.cc/9MddpQrB/a19.gif","https://i.postimg.cc/155GGPPp/a20.gif","https://i.postimg.cc/s2S7jg9R/a21.gif","https://i.postimg.cc/mZS31hxL/a22.gif","https://i.postimg.cc/nrVDGY8H/a23.gif","https://i.postimg.cc/SxncPrnR/a24.gif","https://i.postimg.cc/6pFCxvZ0/a25.gif","https://i.postimg.cc/0jtJWMx7/a26.gif","https://i.postimg.cc/j54ff3Fg/a27.gif","https://i.postimg.cc/gJWRnbNL/a28.gif","https://i.postimg.cc/Pf133dB9/a29.gif","https://i.postimg.cc/Kjh9GWg0/a30.gif","https://i.postimg.cc/Wbn9VXp7/a31.gif","https://i.postimg.cc/bvMCMrYc/a32.gif","https://i.postimg.cc/1tqCZS4g/a33.gif","https://i.postimg.cc/GtPXHjFd/a34.gif"]
+			embed = discord.Embed(title=f"{interaction.user.name} ćwiczy", description=f"", color=0xfceade)
+			embed.set_image(url=f"{random.choice(kissa)}")
+			await interaction.response.send_message(embed=embed, ephemeral = False)
+
 		@tree.command(name = "donacje", description= "Za pomocą tej komendy możesz mi ofiarować trochę radości.", guild = discord.Object(id = 698522294414344232))
 		async def self(interaction: discord.Integration):
 			mchannel = discord.utils.get(interaction.guild.channels, id = 922781362514190386)
@@ -564,7 +635,7 @@ class CustomCommands:
 				yellow = discord.utils.get(interaction.guild.roles, id=927891257139802193)
 				bright_blue = discord.utils.get(interaction.guild.roles, id=927889321929875467)
 				class MyView(View):
-					if Role.server_booster(interaction) in interaction.user.roles:
+					if Role.server_booster(interaction) in interaction.user.roles or Role.plus(interaction) in interaction.user.roles:
 						@discord.ui.button(label="S1", style=discord.ButtonStyle.primary)
 						async def primarys1_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
 							button.disabled = True
@@ -839,7 +910,7 @@ class CustomCommands:
 
 		@tree.command(name = "vocabulary", description= "Pokaże ci słowniczek Otakumani.", guild = discord.Object(id = 698522294414344232))
 		async def self(interaction: discord.Integration):
-			embed = discord.Embed(title="Słownik Otakumani", description="Słownictwo i definicje w nim zawarte zostało stworzone przez @Kiriu czytając je pamiętaj że nie występują one normalnie w języku polskim i nie ponosi on żadnych konsekwencji w przypadku zachorowania na nyantyzm.", color=0xfceade)
+			embed = discord.Embed(title="Słownik Otakumani", description="Słownictwo i definicje w nim zawarte zostało stworzone przez @Kiriu. czytając je pamiętaj że nie występują one normalnie w języku polskim i nie ponosi on żadnych konsekwencji w przypadku zachorowania na nyantyzm.", color=0xfceade)
 			embed.set_thumbnail(url="https://i.postimg.cc/9QhBnvBK/pfp.png")
 			embed.set_image(url="https://i.postimg.cc/cH8bKQKn/anime-girl-reading-books-by-animeart790-df9isfn-fullview.jpg")
 			embed.add_field(name="Nyantyzm", value="Określnie humorystyczne które może być użyte jako: choroba, zachowanie, specyficzność, stan psychiczny, wyjątkowość danej osoby. Powstałe w wyniku chęci stworzenia humorzastego określenia na specyficzność, same słowo jest nawiązaniem do słowa autyzm które ma służyć do podkreślenia inności wybijającej się z utartych zestawu zachowań.", inline=False)
@@ -922,8 +993,9 @@ class CustomCommands:
 							category_table = ["Regulaminy i Weryfikacje","kanały tekstowe","Verified","Bot","Kanały głosowe"]
 							rangc = len(id_channel_category)
 
-							uczestnicy_plus = discord.utils.get(interaction.guild.roles, id=920081493110423592)
-							await uczestnicy_plus.edit(display_icon="💎")
+							if interaction.guild.premium_subscription_count >= 7:
+								uczestnicy_plus = discord.utils.get(interaction.guild.roles, id=920081493110423592)
+								await uczestnicy_plus.edit(display_icon="💎")
 
 							embed = discord.Embed(title="Wygląd: Domyślny", description=f"Ustawiono pomyślnie", color=0xfceade)
 							embed.set_thumbnail(url="https://i.postimg.cc/9fwTJ735/Untitled373-2.png")
@@ -947,8 +1019,9 @@ class CustomCommands:
 							category_table = ["🌹Regulaminy i Weryfikacje","🌷kanały tekstowe","🌸Verified","🌼Bot","🌺Kanały głosowe"]
 							rangc = len(id_channel_category)
 
-							uczestnicy_plus = discord.utils.get(interaction.guild.roles, id=920081493110423592)
-							await uczestnicy_plus.edit(display_icon="🌈")
+							if interaction.guild.premium_subscription_count >= 7:
+								uczestnicy_plus = discord.utils.get(interaction.guild.roles, id=920081493110423592)
+								await uczestnicy_plus.edit(display_icon="🌈")
 
 							embed = discord.Embed(title="Wygląd: Wiosenny", description=f"Ustawiono pomyślnie", color=0xfceade)
 							embed.set_thumbnail(url="https://i.postimg.cc/05pH96XK/spring.jpg")
@@ -972,8 +1045,9 @@ class CustomCommands:
 							category_table = ["🍉Regulaminy i Weryfikacje","🍇kanały tekstowe","🥕Verified","🌽Bot","🍍Kanały głosowe"]
 							rangc = len(id_channel_category)
 
-							uczestnicy_plus = discord.utils.get(interaction.guild.roles, id=920081493110423592)
-							await uczestnicy_plus.edit(display_icon="🍊")
+							if interaction.guild.premium_subscription_count >= 7:
+								uczestnicy_plus = discord.utils.get(interaction.guild.roles, id=920081493110423592)
+								await uczestnicy_plus.edit(display_icon="🍊")
 
 							embed = discord.Embed(title="Wygląd: Letni", description=f"Ustawiono pomyślnie", color=0xfceade)
 							embed.set_thumbnail(url="https://i.postimg.cc/d3mW6XZj/summer.jpg")
@@ -997,8 +1071,9 @@ class CustomCommands:
 							category_table = ["💦Regulaminy i Weryfikacje","💨kanały tekstowe","🦔Verified","🥀Bot","🦊Kanały głosowe"]
 							rangc = len(id_channel_category)
 
-							uczestnicy_plus = discord.utils.get(interaction.guild.roles, id=920081493110423592)
-							await uczestnicy_plus.edit(display_icon="🍁")
+							if interaction.guild.premium_subscription_count >= 7:
+								uczestnicy_plus = discord.utils.get(interaction.guild.roles, id=920081493110423592)
+								await uczestnicy_plus.edit(display_icon="🍁")
 
 							embed = discord.Embed(title="Wygląd: Jesienny", description=f"Ustawiono pomyślnie", color=0xfceade)
 							embed.set_thumbnail(url="https://i.postimg.cc/kXqYGnL1/autumn.png")
@@ -1022,8 +1097,9 @@ class CustomCommands:
 							category_table = ["🧙Regulaminy i Weryfikacje","🧜 kanały tekstowe","😈Verified","🧚Bot","👹Kanały głosowe"]
 							rangc = len(id_channel_category)
 
-							uczestnicy_plus = discord.utils.get(interaction.guild.roles, id=920081493110423592)
-							await uczestnicy_plus.edit(display_icon="🎃")
+							if interaction.guild.premium_subscription_count >= 7:
+								uczestnicy_plus = discord.utils.get(interaction.guild.roles, id=920081493110423592)
+								await uczestnicy_plus.edit(display_icon="🎃")
 
 							embed = discord.Embed(title="Wygląd: Hallowinowy", description=f"Ustawiono pomyślnie", color=0xfceade)
 							embed.set_thumbnail(url="https://i.postimg.cc/4NMMCWcs/hallowin.jpg")
@@ -1047,8 +1123,9 @@ class CustomCommands:
 							category_table = ["🧦Regulaminy i Weryfikacje","🐧kanały tekstowe","🦌Verified","🐏Bot","🥾Kanały głosowe"]
 							rangc = len(id_channel_category)
 
-							uczestnicy_plus = discord.utils.get(interaction.guild.roles, id=920081493110423592)
-							await uczestnicy_plus.edit(display_icon="🧊")
+							if interaction.guild.premium_subscription_count >= 7:
+								uczestnicy_plus = discord.utils.get(interaction.guild.roles, id=920081493110423592)
+								await uczestnicy_plus.edit(display_icon="🧊")
 
 							embed = discord.Embed(title="Wygląd: Zimowy", description=f"Ustawiono pomyślnie", color=0xfceade)
 							embed.set_thumbnail(url="https://i.postimg.cc/4NPLhDgJ/winter.png")
@@ -1072,8 +1149,9 @@ class CustomCommands:
 							category_table = ["⭐Regulaminy i Weryfikacje","🎁kanały tekstowe","🏮Verified","🎐Bot","🎀Kanały głosowe"]
 							rangc = len(id_channel_category)
 
-							uczestnicy_plus = discord.utils.get(interaction.guild.roles, id=920081493110423592)
-							await uczestnicy_plus.edit(display_icon="🍾")
+							if interaction.guild.premium_subscription_count >= 7:
+								uczestnicy_plus = discord.utils.get(interaction.guild.roles, id=920081493110423592)
+								await uczestnicy_plus.edit(display_icon="🍾")
 
 							embed = discord.Embed(title="Wygląd: Nowo roczny", description=f"Ustawiono pomyślnie", color=0xfceade)
 							embed.set_thumbnail(url="https://i.postimg.cc/LszQdRkM/new-year.webp")
@@ -1097,8 +1175,9 @@ class CustomCommands:
 							category_table = ["✔ⱤɆ₲ɄⱠ₳₥ł₦Ɏ ł ₩ɆⱤɎ₣ł₭₳₵JɆ","▪ꈵꁲꃔꁲ꒒ꐔ ꋖꑀꈵꈜꋖꊿꅐꑀ","➋⍻ℇ☈⟟🜅⟟ℇ⟄","▤⌦⌾⍑","▨ǝ̸ʍ̸o̸s̸o̸ʅ̸ᵷ̸ ʎ̸ʅ̸ɐ̸u̸ɐ̸ꓘ̸"]
 							rangc = len(id_channel_category)
 
-							uczestnicy_plus = discord.utils.get(interaction.guild.roles, id=920081493110423592)
-							await uczestnicy_plus.edit(display_icon="⚙️")
+							if interaction.guild.premium_subscription_count >= 7:
+								uczestnicy_plus = discord.utils.get(interaction.guild.roles, id=920081493110423592)
+								await uczestnicy_plus.edit(display_icon="⚙️")
 
 							embed = discord.Embed(title="Wygląd: Alternatywny domyślny", description=f"Ustawiono pomyślnie", color=0xfceade)
 							embed.set_thumbnail(url="https://i.postimg.cc/d1zJR2hT/tumblr-ppswxl-OBB71whrrloo5-500.gif")
@@ -1120,9 +1199,9 @@ class CustomCommands:
 			else:
 				await interaction.response.send_message(f"Nye masz uprawnień do korzystania z tej komendy{interaction.user.mention}", ephemeral = True)
 
-		@tree.command(name = "booster_icon", description= "Wywołuje specjalne icony dla server boosterów.", guild = discord.Object(id = 698522294414344232))
+		@tree.command(name = "booster_icon", description= "Wywołuje specjalne icony dla server boosterów oraz wzmocnionych uczestników+.", guild = discord.Object(id = 698522294414344232))
 		async def self(interaction: discord.Integration):
-			if Role.server_booster(interaction) in interaction.user.roles:
+			if Role.server_booster(interaction) in interaction.user.roles or Role.plus(interaction) in interaction.user.roles:
 				astolfo = discord.utils.get(interaction.guild.roles, id=1105659042233335860)
 				furas = discord.utils.get(interaction.guild.roles, id=1105659052362579978)
 				emilia = discord.utils.get(interaction.guild.roles, id=1105659056913391658)
@@ -1240,16 +1319,25 @@ class CustomCommands:
 							await interaction.response.edit_message(embed=embed)
 
 				embed = discord.Embed(title="Booster Icon", description="Dziękuje wam, że postanowiliście wesprzeć nasz wspólny serwer jest mi niezmiernie miło.", color=0xfceade)
+				if interaction.guild.premium_subscription_count < 7:
+					embed.add_field(name="Uwaga:", value=f"Serwer obecnie nie posiada 2 poziomu wzmocnień co oznacza że wybrane przez was icony obecnie nie będą wyświetlane do puki serwer nie osoągnie ponownie 2 lub 3 poziomu.", inline=True)
 				embed.set_image(url="https://i.postimg.cc/nV1LmcNK/karen-love.gif")
 				embed.set_footer(text="Żeby wybrać icone należy kliknąć przycisk z emoji.\nNatomiast żeby ją usunąć na leży wybrać przycisk z 'X'.")
 				await interaction.response.send_message(embed=embed,view=MyView(),ephemeral = True)
 			else:
 				await interaction.response.send_message(f"Nye masz uprawnień do korzystania z tej komendy {interaction.user.mention} ponieważ jest to komenda dla wspierających.",ephemeral = True)
 
-		# @tree.command(name = "server_stats", description= "Pozwala ci na zobaczenie statystyk serwera Otakumania.", guild = discord.Object(id = 698522294414344232))
-
-
-
+		@tree.command(name = "report", description= "Pozwala ci wysłać dowolne zgłoszenie do oddziały administracji serwera Otakumania.", guild = discord.Object(id = 698522294414344232))
+		async def self(interaction: discord.Integration, tytul: str, tresc: str):
+			guild = client.get_guild(698522294414344232) #Id: Serwera Nya
+			channel = guild.get_channel(922781362514190386) # Id: modowędki
+			embed = discord.Embed(title=f"<:A11_report:921400267440791662> Zgłoszenie", description=f"Od {interaction.user.mention} znanego również jako {interaction.user.name}.", color=0xfceade)
+			embed.add_field(name=f"📅 Data:", value=datetime.today().strftime('%H:%M:%S %d-%m-%Y'), inline=False)
+			embed.add_field(name=f"📰 Tytuł:", value=f"{tytul}", inline=False)
+			embed.add_field(name="📖 Treść:", value=f"{tresc}", inline=False)
+			embed.set_thumbnail(url=f"{interaction.user.avatar}")
+			await channel.send(embed=embed) 
+			await interaction.response.send_message("Pomyślnie wysłano zgłoszenie.", ephemeral = True)
 
 		@tree.command(name = "janken", description= "Pozwala ci na zagranie z kimś w papier, kamień, nożyce.", guild = discord.Object(id = 698522294414344232))
 		async def self(interaction: discord.Integration, member: discord.Member):
@@ -1271,7 +1359,7 @@ class CustomCommands:
 							
 							await interaction.response.edit_message(content=f"Poczekaj aż {member.mention} wybierze symbol.",embed=None, view=None)
 						
-						@discord.ui.button(label="stone",emoji="<:rock:979764802232651856>",style=discord.ButtonStyle.gray)
+						@discord.ui.button(label="stone",emoji="🥌",style=discord.ButtonStyle.gray)
 						async def gray2_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
 							button.disabled = True
 
@@ -1305,7 +1393,7 @@ class CustomCommands:
 							elif b in janken:
 								janken.clear()
 								member_point.append("1")
-								embed = discord.Embed(title=f"Wygrywa {member.name}", description=f"🧻 {member.name}: {len(member_point)}\n\n<:rock:979764802232651856> {thrower.name}: {len(thrower_point)}",color=0xfceade)
+								embed = discord.Embed(title=f"Wygrywa {member.name}", description=f"🧻 {member.name}: {len(member_point)}\n\n🥌 {thrower.name}: {len(thrower_point)}",color=0xfceade)
 								if member.avatar != None:
 									embed.set_thumbnail(url=f"{member.avatar}")
 								await channel.send(embed=embed,view=None)
@@ -1319,7 +1407,7 @@ class CustomCommands:
 								await channel.send(embed=embed,view=None)
 								await interaction.response.edit_message(embed=embed,view=MyAgian())
 						
-						@discord.ui.button(label="stone",emoji="<:rock:979764802232651856>",style=discord.ButtonStyle.gray)
+						@discord.ui.button(label="stone",emoji="🥌",style=discord.ButtonStyle.gray)
 						async def gray2_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
 							button.disabled = True
 							a ="a"
@@ -1329,20 +1417,20 @@ class CustomCommands:
 							if a in janken:
 								janken.clear()
 								thrower_point.append("1")
-								embed = discord.Embed(title=f"Wygrywa {thrower.name}", description=f"<:rock:979764802232651856> {member.name}: {len(member_point)}\n\n🧻{thrower.name}: {len(thrower_point)}", color=0xfceade)
+								embed = discord.Embed(title=f"Wygrywa {thrower.name}", description=f"🥌 {member.name}: {len(member_point)}\n\n🧻{thrower.name}: {len(thrower_point)}", color=0xfceade)
 								if thrower.avatar != None:
 									embed.set_thumbnail(url=f"{thrower.avatar}")
 								await channel.send(embed=embed,view=None)
 								await interaction.response.edit_message(embed=embed,view=MyAgian())
 							elif b in janken:
 								janken.clear()
-								embed = discord.Embed(title=f"Remis", description=f"<:rock:979764802232651856> {member.name}: {len(member_point)}\n<:rock:979764802232651856>{thrower.name}: {len(thrower_point)}", color=0xfceade)
+								embed = discord.Embed(title=f"Remis", description=f"🥌 {member.name}: {len(member_point)}\n🥌 {thrower.name}: {len(thrower_point)}", color=0xfceade)
 								await channel.send(embed=embed,view=None)
 								await interaction.response.edit_message(embed=embed,view=MyAgian())
 							else:
 								janken.clear()
 								member_point.append("1")
-								embed = discord.Embed(title=f"Wygrywa {member.name}", description=f"<:rock:979764802232651856> {member.name}: {len(member_point)}\n\n✂️ {thrower.name}: {len(thrower_point)}",color=0xfceade)
+								embed = discord.Embed(title=f"Wygrywa {member.name}", description=f"🥌 {member.name}: {len(member_point)}\n\n✂️ {thrower.name}: {len(thrower_point)}",color=0xfceade)
 								if member.avatar != None:
 									embed.set_thumbnail(url=f"{member.avatar}")
 								await channel.send(embed=embed,view=None)
@@ -1366,7 +1454,7 @@ class CustomCommands:
 							elif b in janken:
 								janken.clear()
 								thrower_point.append("1")
-								embed = discord.Embed(title=f"Wygrywa {thrower.name}", description=f"✂️ {member.name}: {len(member_point)}\n\n<:rock:979764802232651856> {thrower.name}: {len(thrower_point)}", color=0xfceade)
+								embed = discord.Embed(title=f"Wygrywa {thrower.name}", description=f"✂️ {member.name}: {len(member_point)}\n\n🥌 {thrower.name}: {len(thrower_point)}", color=0xfceade)
 								if thrower.avatar != None:
 									embed.set_thumbnail(url=f"{thrower.avatar}")
 								await channel.send(embed=embed,view=None)
@@ -1548,7 +1636,7 @@ class CustomCommands:
 							
 							await interaction.response.edit_message(content=f"Poczekaj aż {member.mention} wybierze symbol.",embed=None, view=None)
 						
-						@discord.ui.button(label="stone",emoji="<:rock:979764802232651856>",style=discord.ButtonStyle.gray)
+						@discord.ui.button(label="stone",emoji="🥌",style=discord.ButtonStyle.gray)
 						async def gray2_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
 							button.disabled = True
 
@@ -1582,7 +1670,7 @@ class CustomCommands:
 							elif b in janken:
 								janken.clear()
 								member_point.append("1")
-								embed = discord.Embed(title=f"Wygrywa {member.name}", description=f"🧻 {member.name}: {len(member_point)}\n\n<:rock:979764802232651856> {thrower.name}: {len(thrower_point)}",color=0xfceade)
+								embed = discord.Embed(title=f"Wygrywa {member.name}", description=f"🧻 {member.name}: {len(member_point)}\n\n🥌 {thrower.name}: {len(thrower_point)}",color=0xfceade)
 								if member.avatar != None:
 									embed.set_thumbnail(url=f"{member.avatar}")
 								await channel.send(embed=embed,view=None)
@@ -1596,7 +1684,7 @@ class CustomCommands:
 								await channel.send(embed=embed,view=None)
 								await interaction.response.edit_message(embed=embed,view=MyAgian())
 						
-						@discord.ui.button(label="stone",emoji="<:rock:979764802232651856>",style=discord.ButtonStyle.gray)
+						@discord.ui.button(label="stone",emoji="🥌",style=discord.ButtonStyle.gray)
 						async def gray2_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
 							button.disabled = True
 							a ="a"
@@ -1606,20 +1694,20 @@ class CustomCommands:
 							if a in janken:
 								janken.clear()
 								thrower_point.append("1")
-								embed = discord.Embed(title=f"Wygrywa {thrower.name}", description=f"<:rock:979764802232651856> {member.name}: {len(member_point)}\n\n🧻{thrower.name}: {len(thrower_point)}", color=0xfceade)
+								embed = discord.Embed(title=f"Wygrywa {thrower.name}", description=f"🥌 {member.name}: {len(member_point)}\n\n🧻{thrower.name}: {len(thrower_point)}", color=0xfceade)
 								if thrower.avatar != None:
 									embed.set_thumbnail(url=f"{thrower.avatar}")
 								await channel.send(embed=embed,view=None)
 								await interaction.response.edit_message(embed=embed,view=MyAgian())
 							elif b in janken:
 								janken.clear()
-								embed = discord.Embed(title=f"Remis", description=f"<:rock:979764802232651856> {member.name}: {len(member_point)}\n<:rock:979764802232651856>{thrower.name}: {len(thrower_point)}", color=0xfceade)
+								embed = discord.Embed(title=f"Remis", description=f"🥌 {member.name}: {len(member_point)}\n🥌 {thrower.name}: {len(thrower_point)}", color=0xfceade)
 								await channel.send(embed=embed,view=None)
 								await interaction.response.edit_message(embed=embed,view=MyAgian())
 							else:
 								janken.clear()
 								member_point.append("1")
-								embed = discord.Embed(title=f"Wygrywa {member.name}", description=f"<:rock:979764802232651856> {member.name}: {len(member_point)}\n\n✂️ {thrower.name}: {len(thrower_point)}",color=0xfceade)
+								embed = discord.Embed(title=f"Wygrywa {member.name}", description=f"🥌 {member.name}: {len(member_point)}\n\n✂️ {thrower.name}: {len(thrower_point)}",color=0xfceade)
 								if member.avatar != None:
 									embed.set_thumbnail(url=f"{member.avatar}")
 								await channel.send(embed=embed,view=None)
@@ -1643,7 +1731,7 @@ class CustomCommands:
 							elif b in janken:
 								janken.clear()
 								thrower_point.append("1")
-								embed = discord.Embed(title=f"Wygrywa {thrower.name}", description=f"✂️ {member.name}: {len(member_point)}\n\n<:rock:979764802232651856> {thrower.name}: {len(thrower_point)}", color=0xfceade)
+								embed = discord.Embed(title=f"Wygrywa {thrower.name}", description=f"✂️ {member.name}: {len(member_point)}\n\n🥌 {thrower.name}: {len(thrower_point)}", color=0xfceade)
 								if thrower.avatar != None:
 									embed.set_thumbnail(url=f"{thrower.avatar}")
 								await channel.send(embed=embed,view=None)
@@ -1671,12 +1759,13 @@ class CustomCommands:
 
 							await channel.send(f"{member.mention} odmówił dalszego grania w papier, kamień, nożyce.", view=None)
 							
-							await interaction.response.edit_message(content="Pomyślnie zakończono gre w papier, kamień, nożyce.", view=None)
+							await interaction.response.edit_message(content="Pomyślnie zakończono gre w papier, kamień, nożyce.",view=None)
 					
 					class MyAgianTwo(View):
 						@discord.ui.button(label="Again", style=discord.ButtonStyle.green)
 						async def green_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
 							button.disabled = True
+							channel = thrower
 
 							await channel.send(f"{thrower.mention} wybierz swój symbol.", view=MyJanken())
 							
@@ -1685,7 +1774,6 @@ class CustomCommands:
 						@discord.ui.button(label="X", style=discord.ButtonStyle.danger)
 						async def danger_button_callback(self, interaction:discord.Integration, button: discord.ui.Button):
 							button.disabled = True
-							channel = thrower
 
 							await channel.send(f"{thrower.mention} odmówił dalszego grania w papier, kamień, nożyce.", view=None)
 							
